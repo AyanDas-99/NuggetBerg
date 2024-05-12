@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "998430415900",
+    "project_id": "nuggetberg-7bbed",
+    "storage_bucket": "nuggetberg-7bbed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998430415900:android:57584e626e347c807993d9",
+        "android_client_info": {
+          "package_name": "com.example.nugget_berg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-YXrlkeEdPsh6uFnqNkjH89dgLne-RLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998430415900:android:183c9f3dd07ee2b77993d9",
+        "android_client_info": {
+          "package_name": "com.theboringapp.nuggetberg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998430415900-91lskm83jb6khogh3dhin4m0op6ajake.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theboringapp.nuggetberg",
+            "certificate_hash": "a3581142f8e2df66d97df4f0aadbc3ff34a53207"
+          }
+        },
+        {
+          "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-YXrlkeEdPsh6uFnqNkjH89dgLne-RLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
