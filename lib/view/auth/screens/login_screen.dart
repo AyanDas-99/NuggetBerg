@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/providers/scaffold_messenger.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final VoidCallback swapWithSignup;
@@ -20,6 +21,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  forgotPassword() async {
+    final navigator = Navigator.of(context);
+    if (emailController.text.isEmpty) {
+      ref
+          .read(scaffoldMessengerProvider)
+          .showSnackBar(const SnackBar(content: Text('Enter email')));
+    }
+    await ref
+        .read(authRepositoryNotifierProvider.notifier)
+        .forgotPassword(email: emailController.text);
   }
 
   @override
@@ -70,6 +83,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           );
                     },
                     child: Text('Log In')),
+                TextButton(
+                    onPressed: forgotPassword, child: Text('Forgot password')),
               ],
             ),
           ),
