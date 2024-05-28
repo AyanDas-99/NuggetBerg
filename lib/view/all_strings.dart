@@ -8,3 +8,23 @@ String filterOut =
     'Filter out the fillers and focus on what matters most - Your learning experience.';
 String signUp = 'Sign up';
 String login = 'Log in';
+
+// Auth screen
+String welcome = 'Welcome back';
+String emailAd = 'Email address';
+String password = 'Password';
+String forgot = 'Forgot password?';
+String newUser = 'New User';
+String confirmPass = 'Confirm Pasword';
+String terms = 'Terms & Conditions';
+String enterTheEmailUsed =
+    'Enter the email address you used to sign up for a reset link.';
+String sendReset = 'Send Reset Link';
+String googleSign = 'Google Sign In';
+String already = 'Already have an account?';
+
+// Interests
+String whatAre = 'What are you interested in?';
+String wellUse =
+    "We'll use this information to recommend the best content for you.";
+String or = 'or';

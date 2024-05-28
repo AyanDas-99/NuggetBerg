@@ -1,42 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nugget_berg/view/all_strings.dart';
+import 'package:nugget_berg/view/components/main_button.dart';
 
-class SignUpScreen extends ConsumerStatefulWidget {
-  final VoidCallback swapToLogin;
-  const SignUpScreen({super.key, required this.swapToLogin});
+class SignupScreen extends ConsumerStatefulWidget {
+  final VoidCallback swapWithLogin;
+  const SignupScreen({super.key, required this.swapWithLogin});
 
   @override
-  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignUpScreenState extends ConsumerState<SignUpScreen> {
+class _SignupScreenState extends ConsumerState<SignupScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
+
+  // forgotPassword() async {
+  //   final navigator = Navigator.of(context);
+  //   if (emailController.text.isEmpty) {
+  //     ref
+  //         .read(scaffoldMessengerProvider)
+  //         .showSnackBar(const SnackBar(content: Text('Enter email')));
+  //   }
+  //   await ref
+  //       .read(authRepositoryNotifierProvider.notifier)
+  //       .forgotPassword(email: emailController.text);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         children: [
-          TextButton(
-              onPressed: () {
-                ref.read(authRepositoryNotifierProvider.notifier).googleLogin();
-              },
-              child: const Text('Login with google')),
+          Center(
+              child: Text(
+            signUp,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+          )),
+          const SizedBox(height: 20),
           Form(
             key: formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  emailAd,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 10),
                 TextFormField(
+                  decoration: InputDecoration(
+                    hintText: emailAd,
+                    filled: true,
+                    fillColor: Colors.blueGrey.shade50,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -45,7 +78,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     return null;
                   },
                 ),
+                const SizedBox(height: 10),
+                Text(
+                  password,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 10),
                 TextFormField(
+                  decoration: InputDecoration(
+                    hintText: password,
+                    filled: true,
+                    fillColor: Colors.blueGrey.shade50,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
                   controller: passwordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -57,25 +105,85 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     return null;
                   },
                 ),
-                TextButton(
-                    onPressed: () {
-                      if (!formKey.currentState!.validate()) {
-                        return;
-                      }
-                      ref
-                          .read(authRepositoryNotifierProvider.notifier)
-                          .createAccountWithEmail(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-                    },
-                    child: const Text('Sign up')),
+                const SizedBox(height: 10),
+                Text(
+                  confirmPass,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: confirmPass,
+                    filled: true,
+                    fillColor: Colors.blueGrey.shade50,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  controller: passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+                    if (value.length < 8) {
+                      return 'Password should be atleast 8 characters long';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                MainButton(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    onPressed: () {},
+                    backgroundColor: Colors.blue,
+                    child: Text(
+                      login,
+                      style: const TextStyle(color: Colors.white),
+                    )),
               ],
             ),
           ),
-          TextButton(
-              onPressed: widget.swapToLogin,
-              child: const Text('Already have an account')),
+          const SizedBox(height: 20),
+          Center(
+              child: Text(
+            or,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+          )),
+          const SizedBox(height: 20),
+          MainButton(
+            onPressed: () {},
+            backgroundColor: Colors.blue,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  googleSign,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                const SizedBox(width: 10),
+                const FaIcon(
+                  FontAwesomeIcons.google,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(already),
+              TextButton(
+                  onPressed: widget.swapWithLogin,
+                  child: Text(
+                    login,
+                    style:
+                        const TextStyle(decoration: TextDecoration.underline),
+                  )),
+            ],
+          ),
         ],
       ),
     );

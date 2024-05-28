@@ -3,14 +3,15 @@ import 'package:nugget_berg/view/auth/screens/login_screen.dart';
 import 'package:nugget_berg/view/auth/screens/signup_screen.dart';
 
 class AuthScreenController extends StatefulWidget {
-  const AuthScreenController({super.key});
+  const AuthScreenController({super.key, required this.signIn});
+  final bool signIn;
 
   @override
   State<AuthScreenController> createState() => _AuthScreenControllerState();
 }
 
 class _AuthScreenControllerState extends State<AuthScreenController> {
-  bool signIn = true;
+  late bool signIn;
 
   switchSignInSignOut() {
     setState(() {
@@ -19,13 +20,19 @@ class _AuthScreenControllerState extends State<AuthScreenController> {
   }
 
   @override
+  void initState() {
+    signIn = widget.signIn;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return signIn
         ? LoginScreen(
             swapWithSignup: switchSignInSignOut,
           )
-        : SignUpScreen(
-            swapToLogin: switchSignInSignOut,
+        : SignupScreen(
+            swapWithLogin: switchSignInSignOut,
           );
   }
 }

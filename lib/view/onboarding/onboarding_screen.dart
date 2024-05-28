@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nugget_berg/view/all_strings.dart';
+import 'package:nugget_berg/view/auth/screens/auth_screen_controller.dart';
 import 'package:nugget_berg/view/onboarding/components/dot_indicator.dart';
 import 'package:nugget_berg/view/onboarding/components/onboarding_content.dart';
 import 'package:nugget_berg/view/onboarding/models/onboard.dart';
@@ -114,58 +115,67 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               height: 16,
             ),
             // Button area
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      print("Button clicked!");
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 48),
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey.shade100,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          signUp,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 40),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AuthScreenController(
+                            signIn: false,
+                          ),
+                        ));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.blueGrey.shade100,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            signUp,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      print("Button clicked!");
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 48),
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          login,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AuthScreenController(
+                            signIn: true,
+                          ),
+                        ));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            login,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
