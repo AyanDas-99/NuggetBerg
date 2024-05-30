@@ -22,7 +22,7 @@ class MainButton extends StatelessWidget {
             backgroundColor: MaterialStatePropertyAll(backgroundColor),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)))),
-        onPressed: () {},
+        onPressed: onPressed,
         child: child,
       ),
     );

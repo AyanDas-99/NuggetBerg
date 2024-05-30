@@ -28,3 +28,13 @@ String whatAre = 'What are you interested in?';
 String wellUse =
     "We'll use this information to recommend the best content for you.";
 String or = 'or';
+
+// Tabs
+String forYou = 'For you';
+String explore = 'Explore';
+String myLibrary = 'My Library';
+String settings = 'Settings';
+
+// Home
+String home = 'Home';
+String swipeUpD = 'Swipe';

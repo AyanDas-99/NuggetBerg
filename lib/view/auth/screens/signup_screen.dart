@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nugget_berg/view/all_strings.dart';
+import 'package:nugget_berg/view/auth/screens/interest_selection_screen.dart';
 import 'package:nugget_berg/view/components/main_button.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
@@ -26,17 +27,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     super.dispose();
   }
 
-  // forgotPassword() async {
-  //   final navigator = Navigator.of(context);
-  //   if (emailController.text.isEmpty) {
-  //     ref
-  //         .read(scaffoldMessengerProvider)
-  //         .showSnackBar(const SnackBar(content: Text('Enter email')));
-  //   }
-  //   await ref
-  //       .read(authRepositoryNotifierProvider.notifier)
-  //       .forgotPassword(email: emailController.text);
-  // }
+  signupClicked() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const InterestSelectionScreen(),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,10 +130,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 const SizedBox(height: 20),
                 MainButton(
                     padding: const EdgeInsets.symmetric(vertical: 20),
-                    onPressed: () {},
+                    onPressed: signupClicked,
                     backgroundColor: Colors.blue,
                     child: Text(
-                      login,
+                      signUp,
                       style: const TextStyle(color: Colors.white),
                     )),
               ],
