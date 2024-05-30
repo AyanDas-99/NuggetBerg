@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nugget_berg/view/all_strings.dart';
+import 'package:nugget_berg/view/tabs/explore/screens/explore_screen.dart';
 import 'package:nugget_berg/view/tabs/home/home_screen.dart';
 
 class TabViewController extends StatefulWidget {
@@ -67,7 +68,13 @@ class _TabViewControllerState extends State<TabViewController> {
         ),
         body: Column(
           children: [
-            Expanded(child: (selected == 0) ? HomeScreen() : Container()),
+            Expanded(
+                child: [
+              const HomeScreen(),
+              const ExploreScreen(),
+              Container(),
+              Container()
+            ][selected]),
             const SizedBox(height: 70),
           ],
         ),

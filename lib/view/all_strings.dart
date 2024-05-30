@@ -38,3 +38,7 @@ String settings = 'Settings';
 // Home
 String home = 'Home';
 String swipeUpD = 'Swipe';
+
+// Explore
+String searchFor = 'Search for anything';
+String categories = 'Categories';
