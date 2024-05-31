@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nugget_berg/view/components/nugget_card.dart';
 
-class SearchView extends StatelessWidget {
-  final String query;
-  const SearchView({super.key, required this.query});
+class LibraryFullList extends StatelessWidget {
+  final String title;
+  const LibraryFullList({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SearchView extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           title: Text(
-            query,
+            title,
             style: const TextStyle(fontWeight: FontWeight.w200),
           ),
         ),

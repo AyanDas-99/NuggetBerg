@@ -42,3 +42,9 @@ String swipeUpD = 'Swipe';
 // Explore
 String searchFor = 'Search for anything';
 String categories = 'Categories';
+
+// Library
+String bookmarks = 'Bookmarks';
+String liked = 'Liked';
+String history = 'History';
+String showMore = 'Show more';

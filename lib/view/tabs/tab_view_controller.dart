@@ -1,17 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/tabs/explore/screens/explore_screen.dart';
 import 'package:nugget_berg/view/tabs/home/home_screen.dart';
+import 'package:nugget_berg/view/tabs/library/library_screen.dart';
+import 'package:nugget_berg/view/tabs/settings/settings_screen.dart';
+import 'package:nugget_berg/view/theme/app_gradient.dart';
 
-class TabViewController extends StatefulWidget {
+class TabViewController extends ConsumerStatefulWidget {
   const TabViewController({super.key});
 
   @override
-  State<TabViewController> createState() => _TabViewControllerState();
+  ConsumerState<TabViewController> createState() => _TabViewControllerState();
 }
 
-class _TabViewControllerState extends State<TabViewController> {
+class _TabViewControllerState extends ConsumerState<TabViewController> {
   final tabs = <NavigationDestination>[
     NavigationDestination(
       icon: Icon(Icons.home_outlined),
@@ -41,14 +45,10 @@ class _TabViewControllerState extends State<TabViewController> {
 
   @override
   Widget build(BuildContext context) {
+    final appGradient = ref.watch(appGradientProvider);
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 206, 177, 181),
-            Color(0xFFffdde1),
-          ],
-        ),
+      decoration: BoxDecoration(
+        gradient: appGradient,
       ),
       child: Scaffold(
         extendBody: true,
@@ -72,8 +72,8 @@ class _TabViewControllerState extends State<TabViewController> {
                 child: [
               const HomeScreen(),
               const ExploreScreen(),
-              Container(),
-              Container()
+              const LibraryScreen(),
+              const SettingsScreen()
             ][selected]),
             const SizedBox(height: 70),
           ],
