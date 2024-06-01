@@ -19,6 +19,7 @@ class UserStorageRepository {
       if (response.statusCode == 200) {
         return true;
       } else {
+        developer.log(response.body);
         return false;
       }
     } catch (e) {

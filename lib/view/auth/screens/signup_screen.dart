@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
 import 'package:nugget_berg/state/auth/models/auth_result.dart';
 import 'package:nugget_berg/view/all_strings.dart';
-import 'package:nugget_berg/view/auth/screens/interest_selection_screen.dart';
 import 'package:nugget_berg/view/components/main_button.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
@@ -19,6 +19,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  bool passwordVisible = false;
+  bool confirmPasswordVisible = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -39,10 +42,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     }
   }
 
-  signupClicked() {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const InterestSelectionScreen(),
-    ));
+  signupClicked() async {
+    final navigator = Navigator.of(context);
+    if (!formKey.currentState!.validate()) return;
+    await ref
+        .read(authRepositoryNotifierProvider.notifier)
+        .createAccountWithEmail(
+            email: emailController.text, password: passwordController.text);
+    final loggedIn = ref.read(authRepositoryNotifierProvider
+        .select((value) => value.authResult == AuthResult.success));
+    if (loggedIn) {
+      navigator.pop();
+    }
   }
 
   @override
@@ -95,7 +106,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
+                  obscureText: !passwordVisible,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            passwordVisible = !passwordVisible;
+                          });
+                        },
+                        icon: passwordVisible
+                            ? const Icon(CupertinoIcons.eye)
+                            : const Icon(CupertinoIcons.eye_slash)),
                     hintText: password,
                     filled: true,
                     fillColor: Colors.blueGrey.shade50,
@@ -122,7 +143,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
+                  obscureText: !confirmPasswordVisible,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            confirmPasswordVisible = !confirmPasswordVisible;
+                          });
+                        },
+                        icon: confirmPasswordVisible
+                            ? const Icon(CupertinoIcons.eye)
+                            : const Icon(CupertinoIcons.eye_slash)),
                     hintText: confirmPass,
                     filled: true,
                     fillColor: Colors.blueGrey.shade50,
@@ -131,10 +162,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       borderSide: BorderSide.none,
                     ),
                   ),
-                  controller: passwordController,
+                  controller: confirmPasswordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Password cannot be empty';
+                    }
+                    if (value != passwordController.text) {
+                      return 'Not same as password';
                     }
                     if (value.length < 8) {
                       return 'Password should be atleast 8 characters long';
@@ -143,14 +177,22 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   },
                 ),
                 const SizedBox(height: 20),
-                MainButton(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    onPressed: signupClicked,
-                    backgroundColor: Colors.blue,
-                    child: Text(
-                      signUp,
-                      style: const TextStyle(color: Colors.white),
-                    )),
+                if (authLoading)
+                  MainButton(
+                    onPressed: () {},
+                    backgroundColor: Colors.blueAccent.shade100,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: const CircularProgressIndicator(color: Colors.white),
+                  ),
+                if (!authLoading)
+                  MainButton(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      onPressed: signupClicked,
+                      backgroundColor: Colors.blue,
+                      child: Text(
+                        signUp,
+                        style: const TextStyle(color: Colors.white),
+                      )),
               ],
             ),
           ),

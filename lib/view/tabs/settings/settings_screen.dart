@@ -47,7 +47,7 @@ class SettingsScreen extends ConsumerWidget {
               onPressed: () {
                 ref.read(authRepositoryNotifierProvider.notifier).signOut();
               },
-              icon: const Icon(Icons.logout))
+              icon: const Icon(Icons.logout)),
         ],
       ),
     );

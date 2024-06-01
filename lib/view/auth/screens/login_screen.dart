@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool passwordVisible = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -37,23 +39,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 
+  emailLogin() async {
+    if (!formKey.currentState!.validate()) return;
+    final navigator = Navigator.of(context);
+    await ref.read(authRepositoryNotifierProvider.notifier).emailLogin(
+        email: emailController.text, password: passwordController.text);
+    final loggedIn = ref.read(authRepositoryNotifierProvider
+        .select((value) => value.authResult == AuthResult.success));
+    if (loggedIn) {
+      navigator.pop();
+    }
+  }
+
   goToForgotPasswordScreen() {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const ForgotPasswordScreen(),
     ));
   }
-
-  // forgotPassword() async {
-  //   final navigator = Navigator.of(context);
-  //   if (emailController.text.isEmpty) {
-  //     ref
-  //         .read(scaffoldMessengerProvider)
-  //         .showSnackBar(const SnackBar(content: Text('Enter email')));
-  //   }
-  //   await ref
-  //       .read(authRepositoryNotifierProvider.notifier)
-  //       .forgotPassword(email: emailController.text);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
+                  obscureText: !passwordVisible,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            passwordVisible = !passwordVisible;
+                          });
+                        },
+                        icon: passwordVisible
+                            ? const Icon(CupertinoIcons.eye)
+                            : const Icon(CupertinoIcons.eye_slash)),
                     hintText: password,
                     filled: true,
                     fillColor: Colors.blueGrey.shade50,
@@ -119,7 +131,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     return null;
                   },
                 ),
-                // const SizedBox(height: 10),
                 TextButton(
                     onPressed: goToForgotPasswordScreen,
                     child: Text(
@@ -128,14 +139,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           color: Colors.blue.shade600,
                           decoration: TextDecoration.underline),
                     )),
-                MainButton(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
+                if (authLoading)
+                  MainButton(
                     onPressed: () {},
-                    backgroundColor: Colors.blue,
-                    child: Text(
-                      login,
-                      style: const TextStyle(color: Colors.white),
-                    )),
+                    backgroundColor: Colors.blueAccent.shade100,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: const CircularProgressIndicator(color: Colors.white),
+                  ),
+                if (!authLoading)
+                  MainButton(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      onPressed: emailLogin,
+                      backgroundColor: Colors.blue,
+                      child: Text(
+                        login,
+                        style: const TextStyle(color: Colors.white),
+                      )),
               ],
             ),
           ),

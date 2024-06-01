@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nugget_berg/state/auth/%20repositories/user_storage_repository.dart';
 import 'package:nugget_berg/state/auth/models/auth_result.dart';
 import 'package:nugget_berg/state/auth/models/auth_state.dart';
 import 'package:nugget_berg/state/providers/scaffold_messenger.dart';
+import 'package:nugget_berg/view/components/custom_snackbar.dart';
 import 'dart:developer' as developer;
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,7 +17,8 @@ part 'auth_repository.g.dart';
 class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
   @override
   AuthState build() {
-    if (_fAUth.currentUser != null) {
+    if (_fAUth.currentUser != null &&
+        _fAUth.currentUser?.emailVerified == true) {
       return AuthState(
           authResult: AuthResult.success,
           isLoading: false,
@@ -44,7 +45,7 @@ class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
 
       await _fAUth.signInWithCredential(credential);
       // store in db
-      final stored = await userStorage.storeUserToDb(ref);
+      await userStorage.storeUserToDb(ref);
       //
       state = AuthState(
           authResult: AuthResult.success,
@@ -62,6 +63,7 @@ class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
     required String email,
     required String password,
   }) async {
+    state = state.copyWithIsLoading(true);
     try {
       await _fAUth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -69,58 +71,50 @@ class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
       developer.log("Email verification sent");
       // show scaffold messenger
 
-      ref.read(scaffoldMessengerProvider).showSnackBar(
-          SnackBar(content: Text('Verfication email sent to $email')));
+      ref
+          .read(scaffoldMessengerProvider)
+          .showSnackBar(successSnackbar('Verfication email sent to $email'));
+
+      state = state.copyWithIsLoading(false);
       //
       await Future.delayed(const Duration(seconds: 1));
       state = state.copyWithIsLoading(true);
-      Timer.periodic(const Duration(seconds: 15), (timer) async {
-        _fAUth.currentUser?.reload();
-        if (_fAUth.currentUser?.emailVerified == true) {
-          timer.cancel();
 
-          final stored = await userStorage.storeUserToDb(ref);
+      int timer = 6;
+      while (timer > 0) {
+        await Future.delayed(const Duration(seconds: 5));
+        await _fAUth.currentUser?.reload();
+        if (_fAUth.currentUser?.emailVerified == true) {
+          await userStorage.storeUserToDb(ref);
           state = AuthState(
               authResult: AuthResult.success,
               isLoading: false,
               userId: _fAUth.currentUser?.uid);
+          break;
         }
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        developer.log('The password provided is too weak.');
-        ref.read(scaffoldMessengerProvider).showSnackBar(const SnackBar(
-            content: Text('The password provided is too weak.')));
-      } else if (e.code == 'email-already-in-use') {
-        developer.log('The account already exists for that email.');
-        ref.read(scaffoldMessengerProvider).showSnackBar(const SnackBar(
-            content: Text('The account already exists for that email.')));
-      } else {
-        developer.log(e.toString());
-        ref
-            .read(scaffoldMessengerProvider)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        timer--;
       }
+    } on FirebaseAuthException catch (e) {
+      ref.read(scaffoldMessengerProvider).showSnackBar(failureSnackbar(e.code));
     } catch (e) {
       developer.log(e.toString());
     }
+    state = state.copyWithIsLoading(false);
   }
 
   Future emailLogin({required String email, required String password}) async {
-    // state = true;
     state = state.copyWithIsLoading(true);
     try {
-      await _fAUth.signInWithEmailAndPassword(email: email, password: password);
+      await _fAUth.signInWithEmailAndPassword(
+          email: email.trim(), password: password);
 
-      final stored = await userStorage.storeUserToDb(ref);
+      await userStorage.storeUserToDb(ref);
       state = AuthState(
           authResult: AuthResult.success,
           isLoading: false,
           userId: _fAUth.currentUser?.uid);
     } on FirebaseAuthException catch (e) {
-      ref
-          .read(scaffoldMessengerProvider)
-          .showSnackBar(SnackBar(content: Text(e.code)));
+      ref.read(scaffoldMessengerProvider).showSnackBar(failureSnackbar(e.code));
     }
     // state = false;
     state = state.copyWithIsLoading(false);
@@ -130,21 +124,20 @@ class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
     state = state.copyWithIsLoading(true);
     try {
       await _fAUth.sendPasswordResetEmail(email: email);
-      ref.read(scaffoldMessengerProvider).showSnackBar(
-          SnackBar(content: Text('Password reset email sent to $email')));
+      ref
+          .read(scaffoldMessengerProvider)
+          .showSnackBar(successSnackbar('Password reset email sent to $email'));
 
       state = state.copyWithIsLoading(false);
       return true;
     } on FirebaseAuthException catch (e) {
-      ref
-          .read(scaffoldMessengerProvider)
-          .showSnackBar(SnackBar(content: Text(e.code)));
+      ref.read(scaffoldMessengerProvider).showSnackBar(failureSnackbar(e.code));
 
       return false;
     } catch (e) {
       ref
           .read(scaffoldMessengerProvider)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+          .showSnackBar(failureSnackbar(e.toString()));
 
       return false;
     } finally {
