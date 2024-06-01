@@ -2,8 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/firebase_options.dart';
+import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/auth/providers/is_logged_in.dart';
 import 'package:nugget_berg/state/providers/scaffold_messenger_key.dart';
 import 'package:nugget_berg/view/onboarding/onboarding_screen.dart';
+import 'package:nugget_berg/view/tabs/tab_view_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,9 +19,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final isLogged = ref.watch(isLoggedInProvider);
-    // final authLoading = ref.watch(
-    //     authRepositoryNotifierProvider.select((value) => value.isLoading));
+    final isLogged = ref.watch(isLoggedInProvider);
+    final authLoading = ref.watch(
+        authRepositoryNotifierProvider.select((value) => value.isLoading));
     return MaterialApp(
       scaffoldMessengerKey: ref.watch(scaffoldMessagerKeyProvider),
       title: 'Flutter Demo',
@@ -28,7 +31,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const OnBoardingScreen(),
+      home: isLogged ? const TabViewController() : const OnBoardingScreen(),
     );
   }
 }

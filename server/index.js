@@ -1,8 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const firebaseAdmin = require('firebase-admin')
 require('dotenv').config()
 const cors = require('cors')
 const getVideoRoute = require('./routes/get_video')
+const userRoute = require('./routes/user')
 // const getSummaryRoute = require('./routes/get_summary')
 
 const PORT = process.env.PORT || 3000
@@ -13,12 +15,21 @@ const app = new express()
 app.use(cors())
 app.use(express.json())
 app.use(getVideoRoute)
+app.use(userRoute)
 // app.use(getSummaryRoute)
 
 
 app.get("/", (req, res) => {
     res.send("Welcome " + process.env.API_KEY)
 })
+
+// Firebase admin initialization
+var serviceAccount = require("/home/ayan/Downloads/nuggetberg-7bbed-firebase-adminsdk-rmucu-1ec60f0316.json");
+
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(serviceAccount),
+});
+
 
 
 // connect to mongoose

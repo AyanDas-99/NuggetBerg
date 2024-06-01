@@ -1,29 +1,30 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' as developer;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/constants.dart';
 
 class UserStorageRepository {
-  Future<bool> storeUserToDb(User user) async {
-    // try {
-    //   final a = await db
-    //       .collection('users')
-    //       .where(UserFieldNames.phoneNumber, isEqualTo: user.phoneNumber)
-    //       .get();
-    //   if (a.docs.isNotEmpty) {
-    //     return false;
-    //   }
+  Future<bool> storeUserToDb(Ref ref) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      print(token);
+      final response = await http.post(
+          Uri.parse('${Constants.baseUrl}/user/create'),
+          headers: {...Constants.contentType, 'accessToken': token!});
 
-    //   final payload = UserPayload(
-    //     displayName: user.displayName,
-    //     uid: user.uid,
-    //     photoUrl: user.photoURL,
-    //     phoneNumber: user.phoneNumber,
-    //   );
+      developer.log(response.body);
 
-    //   await db.collection('users').add(payload);
-    //   return true;
-    // } catch (e) {
-    //   developer.log("User storage to firestore error", error: e);
-    // }
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      developer.log("User storage to mongo error", error: e);
+      ref.read(authRepositoryNotifierProvider.notifier).signOut();
+    }
     return false;
   }
 }

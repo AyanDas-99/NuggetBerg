@@ -1,4 +1,4 @@
-package com.example.nugget_berg
+package com.theboringapp.nugget_berg
 
 import io.flutter.embedding.android.FlutterActivity
 

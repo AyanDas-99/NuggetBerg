@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/theme/app_gradient.dart';
 
@@ -28,19 +29,26 @@ class SettingsScreen extends ConsumerWidget {
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
         ),
-        children: gradients
-            .map((e) => InkWell(
-                  onTap: () {
-                    ref.read(appGradientProvider.notifier).change(e);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: e,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all()),
-                  ),
-                ))
-            .toList(),
+        children: [
+          ...gradients.map(
+            (e) => InkWell(
+              onTap: () {
+                ref.read(appGradientProvider.notifier).change(e);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: e,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all()),
+              ),
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                ref.read(authRepositoryNotifierProvider.notifier).signOut();
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
     );
   }

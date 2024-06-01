@@ -1,7 +1,21 @@
 const mongoose = require('mongoose')
 
+const videoSchema = new mongoose.Schema({
+    video_id: {
+        required: true,
+        type: String
+    }
+},
+    {
+        timestamps: {
+            createdAt: true,
+            updatedAt: false
+        }
+    }
+)
+
 const userSchema = new mongoose.Schema({
-    user_id: String,
+    _id: String,
     email: {
         require: true,
         type: String,
@@ -15,10 +29,12 @@ const userSchema = new mongoose.Schema({
         }
     },
     name: {
-        required: true,
+        required: false,
         type: String,
         trim: true,
     },
+    favourites: [videoSchema],
+    viewed: [videoSchema]
 })
 
 const User = mongoose.model('User', userSchema);

@@ -22,4 +22,8 @@ class AuthState extends Equatable {
 
   @override
   List<Object?> get props => [authResult, isLoading, userId];
+
+  @override
+  String toString() =>
+      'AuthResult: ${authResult?.name} , Loading: $isLoading , User: $userId';
 }
