@@ -39,24 +39,22 @@ class _ExploreScreenState extends State<ExploreScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Expanded(
-            child: SearchBar(
-              controller: searchContrller,
-              backgroundColor: const MaterialStatePropertyAll(Colors.white54),
-              hintText: searchFor,
-              leading: const Icon(Icons.search),
-              elevation: const MaterialStatePropertyAll(0),
-              shape: MaterialStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+          SearchBar(
+            controller: searchContrller,
+            backgroundColor: const MaterialStatePropertyAll(Colors.white54),
+            hintText: searchFor,
+            leading: const Icon(Icons.search),
+            elevation: const MaterialStatePropertyAll(0),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-              onSubmitted: (value) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SearchView(query: searchContrller.text),
-                ));
-              },
             ),
+            onSubmitted: (value) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SearchView(query: searchContrller.text),
+              ));
+            },
           ),
           const SizedBox(height: 20),
           Text(

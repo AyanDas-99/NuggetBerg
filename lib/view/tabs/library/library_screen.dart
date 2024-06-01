@@ -21,7 +21,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
-          explore,
+          myLibrary,
           style: const TextStyle(fontWeight: FontWeight.w200),
         ),
         surfaceTintColor: Colors.transparent,

@@ -38,14 +38,12 @@ class NuggetCard extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                child: Expanded(
-                  child: Text(
-                    'How to get rich in your 20s',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w200,
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                child: Text(
+                  'How to get rich in your 20s',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w200,
+                    fontSize: 18,
+                    color: Colors.white,
                   ),
                 ),
               ),

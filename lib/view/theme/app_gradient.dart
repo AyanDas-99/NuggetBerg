@@ -36,6 +36,15 @@ List<LinearGradient> allAppGradients(AllAppGradientsRef ref) {
         Color.fromRGBO(255, 255, 255, 1),
       ],
     ),
-    LinearGradient(colors: [])
+
+    // background: linear-gradient(220.55deg, #FFF6EB 0%, #DFD1C5 100%);
+    LinearGradient(
+      begin: Alignment.bottomLeft,
+      end: Alignment.topRight,
+      colors: [
+        Color(0xFFFFF6EB),
+        Color(0xFFDFD1C5),
+      ],
+    )
   ];
 }
