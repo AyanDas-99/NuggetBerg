@@ -1,5 +1,6 @@
 const axios = require('axios');
 const express = require('express')
+const filterShorts = require('../utils/filter_shorts')
 
 const getVideoRoute = express.Router();
 
@@ -11,12 +12,14 @@ getVideoRoute.get("/video", async (req, res) => {
             key: process.env.API_KEY,
             part: "snippet",
             type: "video",
-            channelId: "UCsooa4yRKGN_zEE8iknghZA",
-            maxResults: 10,
+            videoCategories: 25,
+            q: 'motivation+OR+self+help+OR+inspirational+OR+self+improvement+OR+TED+Ed',
+            maxResults: 25,
             pageToken: nextPage
         }
     }).then((result) => {
-        console.log(result)
+        console.log(result.data);
+        result.data = filterShorts(result.data);
         res.json(result.data) 
     }).catch((err) => {
         res.status(500).json(err)
