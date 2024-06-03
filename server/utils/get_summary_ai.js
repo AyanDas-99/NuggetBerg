@@ -1,21 +1,14 @@
 const { default: axios } = require("axios");
-const getTranscript = require('./get_transcript');
+const getTranscript = require("./get_transcript");
 const extractJson = require("./extractJson");
-const {
-  genAI,
-  generationConfig,
-  safetySettings,
-  model,
-} = require("./genai");
-
-
+const { genAI, generationConfig, safetySettings, model } = require("./genai");
 
 async function getSummaryAi(videoId) {
-    try {
+  try {
     const transcript = await getTranscript(videoId);
     console.log(JSON.stringify(transcript));
     if (transcript == undefined) {
-      return res.status(500).json({ message: "Could not generate transcript" });
+      return null;
     }
     const chatSession = model.startChat({
       generationConfig,
@@ -32,21 +25,7 @@ async function getSummaryAi(videoId) {
             },
             { text: JSON.stringify(transcript) },
             {
-              text: `Return the points in JSON using the following structure:
-{
-"items":[
-{
-"header":{header},
-"points":[
-{
-"title": {title},
-"text": {text},
-},
-]
-}
-]
-}
-The number of items and points in each item is dynamic`,
+             text: 'Return the points in JSON using the following structure:\n{\n"items":[\n{\n"header":{header},\n"points":[\n{\n"title": {title},\n"text": {text},\n},\n]\n}\n]\n}\nlength of "items" is dynamic and dependent on the transcript provided\nlength of "points" is a maximum of 2',
             },
           ],
         },
@@ -59,9 +38,9 @@ The number of items and points in each item is dynamic`,
     jsondata = extractJson(data);
     console.log(jsondata);
     return jsondata;
-    } catch (error) {
-        console.error(error);
-    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 module.exports = getSummaryAi;

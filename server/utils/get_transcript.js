@@ -21,6 +21,7 @@ async function getTranscript(videoId) {
         };
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 

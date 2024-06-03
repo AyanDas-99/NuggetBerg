@@ -13,7 +13,6 @@ const {
 const getSummaryRoute = express.Router();
 /*
 Get summary from DB if exists or AI 
-
 To be used generally used by app
 */
 getSummaryRoute.get("/summary", async (req, res) => {
@@ -33,7 +32,7 @@ getSummaryRoute.get("/summary", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      error: e.message,
+      error: error.message,
     });
   }
 });
@@ -68,7 +67,7 @@ getSummaryRoute.get("/summary/db", async (req, res) => {
     res.json(summary);
   } catch (err) {
     res.status(500).json({
-      error: e.message,
+      error: err.message,
     });
   }
 });
