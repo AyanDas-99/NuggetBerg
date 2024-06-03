@@ -47,3 +47,4 @@ node_modules/
 
 # keys
 .env
+server/.env
