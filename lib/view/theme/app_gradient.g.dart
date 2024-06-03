@@ -6,7 +6,7 @@ part of 'app_gradient.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allAppGradientsHash() => r'85c6d37d22642187915eae4f93ecf39572e7b3d5';
+String _$allAppGradientsHash() => r'ab040fc87843f2286be745397ac6b6080d5b9a0d';
 
 /// See also [allAppGradients].
 @ProviderFor(allAppGradients)

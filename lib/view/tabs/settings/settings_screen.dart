@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/nuggets/providers/nugget_by_video_id.dart';
 import 'package:nugget_berg/view/all_strings.dart';
-import 'package:nugget_berg/view/theme/app_gradient.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final gradients = ref.watch(allAppGradientsProvider);
+    final nugget = ref.watch(nuggetByVideoIdProvider('Oar9pkc7BSc'));
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -22,33 +21,11 @@ class SettingsScreen extends ConsumerWidget {
         ),
         surfaceTintColor: Colors.transparent,
       ),
-      body: GridView(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        children: [
-          ...gradients.map(
-            (e) => InkWell(
-              onTap: () {
-                ref.read(appGradientProvider.notifier).change(e);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    gradient: e,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all()),
-              ),
-            ),
-          ),
-          IconButton(
-              onPressed: () {
-                ref.read(authRepositoryNotifierProvider.notifier).signOut();
-              },
-              icon: const Icon(Icons.logout)),
-        ],
+      body: Center(
+        child: nugget.when(
+            data: (nugget) => Text(nugget.toString()),
+            error: (e, st) => Text(e.toString()),
+            loading: () => CircularProgressIndicator()),
       ),
     );
   }
