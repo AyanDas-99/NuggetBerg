@@ -11,8 +11,11 @@ const {
 } = require("../../utils/genai");
 
 const getSummaryRoute = express.Router();
+/*
+Get summary from DB if exists or AI 
 
-// Get summary from DB if exists or AI 
+To be used generally used by app
+*/
 getSummaryRoute.get("/summary", async (req, res) => {
   const { videoId } = req.query;
   try {
@@ -35,7 +38,10 @@ getSummaryRoute.get("/summary", async (req, res) => {
   }
 });
 
-// Get summary from ai
+/*
+Get summary from ai
+Usage not recommended
+*/
 getSummaryRoute.get("/summary/ai", async (req, res) => {
   const { videoId } = req.query;
   try {
@@ -48,7 +54,10 @@ getSummaryRoute.get("/summary/ai", async (req, res) => {
   }
 });
 
-// Get summary from db
+/*
+Get summary from db 
+Usage not recommended
+*/
 getSummaryRoute.get("/summary/db", async (req, res) => {
   const { videoId } = req.query;
   try {
