@@ -5,7 +5,8 @@ require('dotenv').config()
 const cors = require('cors')
 const getVideoRoute = require('./routes/get_video')
 const userRoute = require('./routes/user')
-const getSummaryRoute = require('./routes/get_summary')
+const getSummaryRoute = require('./routes/summary/get_summary')
+const storeSummaryRoute = require('./routes/summary/store_summary')
 require('./utils/genai');
 
 const PORT = process.env.PORT || 3000
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use(getVideoRoute)
 app.use(userRoute)
 app.use(getSummaryRoute)
+app.use(storeSummaryRoute)
 
 
 app.get("/", (req, res) => {
