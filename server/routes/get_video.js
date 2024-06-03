@@ -4,7 +4,7 @@ const filterShorts = require("../utils/filter_shorts");
 
 const getVideoRoute = express.Router();
 
-getVideoRoute.get("/video", async (req, res) => {
+getVideoRoute.get("/videos", async (req, res) => {
   const { nextPage } = req.params;
   try {
     axios

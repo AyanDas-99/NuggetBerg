@@ -11,7 +11,7 @@ class NuggetCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const Material(child: MainContent()),
+            builder: (context) => const Material(),
           ));
         },
         child: Stack(
