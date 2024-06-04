@@ -14,10 +14,12 @@ class video extends _$video {
     return [];
   }
 
-  updateList() async {
-    var videos = await http.get(Uri.parse('${Constants.baseUrl}/videos'));
-    state = (json.decode(videos.body)['items'] as List)
+  Future<List<Video>> updateList() async {
+    var response = await http.get(Uri.parse('${Constants.baseUrl}/videos'));
+    var videos = (json.decode(response.body)['items'] as List)
         .map((e) => Video.fromMap(e))
         .toList();
+    state.addAll(videos);
+    return videos;
   }
 }

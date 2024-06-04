@@ -6,7 +6,7 @@ part of 'nugget_by_video_id.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nuggetByVideoIdHash() => r'9e7c09e77dc4295ea7d3c913b7025e6044d075cf';
+String _$nuggetByVideoIdHash() => r'0f708fa049a7dba99b0bc941af144b53f2ebdcfe';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +34,7 @@ class _SystemHash {
 const nuggetByVideoIdProvider = NuggetByVideoIdFamily();
 
 /// See also [nuggetByVideoId].
-class NuggetByVideoIdFamily extends Family<AsyncValue<Nugget>> {
+class NuggetByVideoIdFamily extends Family<AsyncValue<Nugget?>> {
   /// See also [nuggetByVideoId].
   const NuggetByVideoIdFamily();
 
@@ -72,7 +72,7 @@ class NuggetByVideoIdFamily extends Family<AsyncValue<Nugget>> {
 }
 
 /// See also [nuggetByVideoId].
-class NuggetByVideoIdProvider extends AutoDisposeFutureProvider<Nugget> {
+class NuggetByVideoIdProvider extends AutoDisposeFutureProvider<Nugget?> {
   /// See also [nuggetByVideoId].
   NuggetByVideoIdProvider(
     String videoId,
@@ -107,7 +107,7 @@ class NuggetByVideoIdProvider extends AutoDisposeFutureProvider<Nugget> {
 
   @override
   Override overrideWith(
-    FutureOr<Nugget> Function(NuggetByVideoIdRef provider) create,
+    FutureOr<Nugget?> Function(NuggetByVideoIdRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -124,7 +124,7 @@ class NuggetByVideoIdProvider extends AutoDisposeFutureProvider<Nugget> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<Nugget> createElement() {
+  AutoDisposeFutureProviderElement<Nugget?> createElement() {
     return _NuggetByVideoIdProviderElement(this);
   }
 
@@ -142,13 +142,13 @@ class NuggetByVideoIdProvider extends AutoDisposeFutureProvider<Nugget> {
   }
 }
 
-mixin NuggetByVideoIdRef on AutoDisposeFutureProviderRef<Nugget> {
+mixin NuggetByVideoIdRef on AutoDisposeFutureProviderRef<Nugget?> {
   /// The parameter `videoId` of this provider.
   String get videoId;
 }
 
 class _NuggetByVideoIdProviderElement
-    extends AutoDisposeFutureProviderElement<Nugget> with NuggetByVideoIdRef {
+    extends AutoDisposeFutureProviderElement<Nugget?> with NuggetByVideoIdRef {
   _NuggetByVideoIdProviderElement(super.provider);
 
   @override

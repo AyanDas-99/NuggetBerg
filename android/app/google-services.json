@@ -7,49 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:998430415900:android:57584e626e347c807993d9",
-        "android_client_info": {
-          "package_name": "com.example.nugget_berg"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "998430415900-5i8ug93lekqr8ljebb3ddth9j7k8fdp1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.nugget_berg",
-            "certificate_hash": "1d5e1516777631bab2b7ce62c6b6777598ff62dc"
-          }
-        },
-        {
-          "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC-YXrlkeEdPsh6uFnqNkjH89dgLne-RLs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:998430415900:android:bba4ef8323c9bfc77993d9",
         "android_client_info": {
           "package_name": "com.theboringapp.nugget_berg"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "998430415900-5slpc4qr2vbqga4a4dpu2gg4ahu1qrmu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theboringapp.nugget_berg",
+            "certificate_hash": "1d5e1516777631bab2b7ce62c6b6777598ff62dc"
+          }
+        },
         {
           "client_id": "998430415900-111sgcmr6nkqrk9au91q43trn0psa267.apps.googleusercontent.com",
           "client_type": 3

@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 part 'nugget_by_video_id.g.dart';
 
 @riverpod
-FutureOr<Nugget> nuggetByVideoId(NuggetByVideoIdRef ref, String videoId) async {
+FutureOr<Nugget?> nuggetByVideoId(NuggetByVideoIdRef ref, String videoId) async {
   var response = await http
       .get(Uri.parse('${Constants.baseUrl}/summary?videoId=$videoId'));
-  print(response.body);
+  if(response.statusCode != 200) return null;
   return Nugget.fromJson(response.body);
 }
