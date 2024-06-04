@@ -5,8 +5,8 @@ require('dotenv').config()
 const cors = require('cors')
 const getVideoRoute = require('./routes/get_video')
 const userRoute = require('./routes/user')
-const getSummaryRoute = require('./routes/summary/get_summary')
-const storeSummaryRoute = require('./routes/summary/store_summary')
+const summaryRoute = require('./routes/summary/summary_route')
+const transcriptRoute = require('./routes/transcript_route');
 require('./utils/genai');
 
 const PORT = process.env.PORT || 3000
@@ -18,8 +18,8 @@ app.use(cors())
 app.use(express.json())
 app.use(getVideoRoute)
 app.use(userRoute)
-app.use(getSummaryRoute)
-app.use(storeSummaryRoute)
+app.use(summaryRoute)
+app.use(transcriptRoute)
 
 
 app.get("/", (req, res) => {
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 })
 
 // Firebase admin initialization
-var serviceAccount = require("/home/ayan/Downloads/nuggetberg-7bbed-firebase-adminsdk-rmucu-1ec60f0316.json");
+var serviceAccount = require("/home/ayan/Downloads/nuggetberg-7bbed-firebase-adminsdk-rmucu-7ba43897ec.json");
 
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(serviceAccount),

@@ -5,7 +5,7 @@ const filterShorts = require("../utils/filter_shorts");
 const getVideoRoute = express.Router();
 
 getVideoRoute.get("/videos", async (req, res) => {
-  const { nextPage } = req.params;
+  const { nextPage } = req.query;
   try {
     axios
       .get("https://www.googleapis.com/youtube/v3/search", {

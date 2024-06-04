@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+const { default: axios, Axios, AxiosError } = require("axios");
 
 async function getTranscript(videoId) {
     try {
@@ -13,15 +13,20 @@ async function getTranscript(videoId) {
             }
         }
         );
-        const data = response.data[0];
-        return {
-            title: data['title'],
-            description: data['description'],
-            transcript: data['transcriptionAsText']
-        };
-    } catch (error) {
-        console.error(error);
+        if (response.status == 200) {
+            if(response.data[0] == undefined) return null;
+            const data = response.data[0];
+            return {
+                title: data['title'],
+                description: data['description'],
+                transcript: data['transcriptionAsText']
+            };
+
+        }
         return null;
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
 }
 

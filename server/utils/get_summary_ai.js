@@ -6,8 +6,7 @@ const { genAI, generationConfig, safetySettings, model } = require("./genai");
 async function getSummaryAi(videoId) {
   try {
     const transcript = await getTranscript(videoId);
-    console.log(JSON.stringify(transcript));
-    if (transcript == undefined) {
+    if (transcript == null) {
       return null;
     }
     const chatSession = model.startChat({
@@ -40,6 +39,7 @@ async function getSummaryAi(videoId) {
     return jsondata;
   } catch (error) {
     console.error(error);
+    return null;
   }
 }
 
