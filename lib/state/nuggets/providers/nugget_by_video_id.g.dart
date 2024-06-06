@@ -6,7 +6,7 @@ part of 'nugget_by_video_id.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nuggetByVideoIdHash() => r'0f708fa049a7dba99b0bc941af144b53f2ebdcfe';
+String _$nuggetByVideoHash() => r'7df1e3ea0c9de45eb2390b9ba3f0fe06810fab6f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,30 +29,30 @@ class _SystemHash {
   }
 }
 
-/// See also [nuggetByVideoId].
-@ProviderFor(nuggetByVideoId)
-const nuggetByVideoIdProvider = NuggetByVideoIdFamily();
+/// See also [nuggetByVideo].
+@ProviderFor(nuggetByVideo)
+const nuggetByVideoProvider = NuggetByVideoFamily();
 
-/// See also [nuggetByVideoId].
-class NuggetByVideoIdFamily extends Family<AsyncValue<Nugget?>> {
-  /// See also [nuggetByVideoId].
-  const NuggetByVideoIdFamily();
+/// See also [nuggetByVideo].
+class NuggetByVideoFamily extends Family<AsyncValue<Nugget?>> {
+  /// See also [nuggetByVideo].
+  const NuggetByVideoFamily();
 
-  /// See also [nuggetByVideoId].
-  NuggetByVideoIdProvider call(
-    String videoId,
+  /// See also [nuggetByVideo].
+  NuggetByVideoProvider call(
+    Video video,
   ) {
-    return NuggetByVideoIdProvider(
-      videoId,
+    return NuggetByVideoProvider(
+      video,
     );
   }
 
   @override
-  NuggetByVideoIdProvider getProviderOverride(
-    covariant NuggetByVideoIdProvider provider,
+  NuggetByVideoProvider getProviderOverride(
+    covariant NuggetByVideoProvider provider,
   ) {
     return call(
-      provider.videoId,
+      provider.video,
     );
   }
 
@@ -68,91 +68,91 @@ class NuggetByVideoIdFamily extends Family<AsyncValue<Nugget?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'nuggetByVideoIdProvider';
+  String? get name => r'nuggetByVideoProvider';
 }
 
-/// See also [nuggetByVideoId].
-class NuggetByVideoIdProvider extends AutoDisposeFutureProvider<Nugget?> {
-  /// See also [nuggetByVideoId].
-  NuggetByVideoIdProvider(
-    String videoId,
+/// See also [nuggetByVideo].
+class NuggetByVideoProvider extends AutoDisposeFutureProvider<Nugget?> {
+  /// See also [nuggetByVideo].
+  NuggetByVideoProvider(
+    Video video,
   ) : this._internal(
-          (ref) => nuggetByVideoId(
-            ref as NuggetByVideoIdRef,
-            videoId,
+          (ref) => nuggetByVideo(
+            ref as NuggetByVideoRef,
+            video,
           ),
-          from: nuggetByVideoIdProvider,
-          name: r'nuggetByVideoIdProvider',
+          from: nuggetByVideoProvider,
+          name: r'nuggetByVideoProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$nuggetByVideoIdHash,
-          dependencies: NuggetByVideoIdFamily._dependencies,
+                  : _$nuggetByVideoHash,
+          dependencies: NuggetByVideoFamily._dependencies,
           allTransitiveDependencies:
-              NuggetByVideoIdFamily._allTransitiveDependencies,
-          videoId: videoId,
+              NuggetByVideoFamily._allTransitiveDependencies,
+          video: video,
         );
 
-  NuggetByVideoIdProvider._internal(
+  NuggetByVideoProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.videoId,
+    required this.video,
   }) : super.internal();
 
-  final String videoId;
+  final Video video;
 
   @override
   Override overrideWith(
-    FutureOr<Nugget?> Function(NuggetByVideoIdRef provider) create,
+    FutureOr<Nugget?> Function(NuggetByVideoRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: NuggetByVideoIdProvider._internal(
-        (ref) => create(ref as NuggetByVideoIdRef),
+      override: NuggetByVideoProvider._internal(
+        (ref) => create(ref as NuggetByVideoRef),
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        videoId: videoId,
+        video: video,
       ),
     );
   }
 
   @override
   AutoDisposeFutureProviderElement<Nugget?> createElement() {
-    return _NuggetByVideoIdProviderElement(this);
+    return _NuggetByVideoProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is NuggetByVideoIdProvider && other.videoId == videoId;
+    return other is NuggetByVideoProvider && other.video == video;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, videoId.hashCode);
+    hash = _SystemHash.combine(hash, video.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin NuggetByVideoIdRef on AutoDisposeFutureProviderRef<Nugget?> {
-  /// The parameter `videoId` of this provider.
-  String get videoId;
+mixin NuggetByVideoRef on AutoDisposeFutureProviderRef<Nugget?> {
+  /// The parameter `video` of this provider.
+  Video get video;
 }
 
-class _NuggetByVideoIdProviderElement
-    extends AutoDisposeFutureProviderElement<Nugget?> with NuggetByVideoIdRef {
-  _NuggetByVideoIdProviderElement(super.provider);
+class _NuggetByVideoProviderElement
+    extends AutoDisposeFutureProviderElement<Nugget?> with NuggetByVideoRef {
+  _NuggetByVideoProviderElement(super.provider);
 
   @override
-  String get videoId => (origin as NuggetByVideoIdProvider).videoId;
+  Video get video => (origin as NuggetByVideoProvider).video;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

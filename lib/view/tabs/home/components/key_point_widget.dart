@@ -47,7 +47,7 @@ class KeyPointWidget extends StatelessWidget {
                     TextSpan(
                       text: e.text,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w200, fontSize: 15),
+                          fontWeight: FontWeight.w200, fontSize: 12),
                     ),
                   ]))),
         ],

@@ -8,7 +8,7 @@ class MainContentLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.black.withAlpha(10),
+      baseColor: Colors.black.withAlpha(20),
       highlightColor: Colors.grey.withAlpha(10),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

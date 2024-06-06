@@ -3,19 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/state/nuggets/models/nugget.dart';
-import 'package:nugget_berg/state/videos/models/video.dart';
 import 'package:nugget_berg/view/tabs/home/components/dot_indicator.dart';
 import 'package:nugget_berg/view/tabs/home/components/key_point_widget.dart';
 import 'dart:math' as math;
-
 import 'package:shimmer/shimmer.dart';
 
 class MainContent extends ConsumerStatefulWidget {
-  final Video video;
   final Nugget nugget;
   const MainContent({
     super.key,
-    required this.video,
     required this.nugget,
   });
 
@@ -41,7 +37,7 @@ class _MainContentState extends ConsumerState<MainContent> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  widget.video.thumbnail,
+                  widget.nugget.video.thumbnail,
                   width: double.infinity,
                   height: 160,
                   fit: BoxFit.fitWidth,
@@ -49,7 +45,7 @@ class _MainContentState extends ConsumerState<MainContent> {
               ),
               const SizedBox(height: 10),
               Text(
-                widget.video.title,
+                widget.nugget.video.title,
                 style:
                     const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
               ),
@@ -59,7 +55,7 @@ class _MainContentState extends ConsumerState<MainContent> {
                   options: CarouselOptions(
                     enableInfiniteScroll: false,
                     viewportFraction: 1,
-                    height: MediaQuery.of(context).size.height * 0.43,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     enlargeCenterPage: true,
                     onPageChanged: (index, reason) {
                       setState(() {

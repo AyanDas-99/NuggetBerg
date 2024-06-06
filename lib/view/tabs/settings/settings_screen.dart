@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/state/nuggets/providers/nugget_by_video_id.dart';
+import 'package:nugget_berg/state/videos/models/video.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -8,7 +9,6 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nugget = ref.watch(nuggetByVideoIdProvider('Oar9pkc7BSc'));
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -21,12 +21,7 @@ class SettingsScreen extends ConsumerWidget {
         ),
         surfaceTintColor: Colors.transparent,
       ),
-      body: Center(
-        child: nugget.when(
-            data: (nugget) => Text(nugget.toString()),
-            error: (e, st) => Text(e.toString()),
-            loading: () => CircularProgressIndicator()),
-      ),
+      body: Text('Settings'),
     );
   }
 }

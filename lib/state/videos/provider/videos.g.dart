@@ -6,19 +6,21 @@ part of 'videos.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$videoHash() => r'8e7b2ad87834feb5f61e6ee47e70bb522008364d';
+String _$videoProviderHash() => r'420c0cbaba3f918d6cbbd419e960e4bebc3d782b';
 
-/// See also [video].
-@ProviderFor(video)
-final videoProvider = AutoDisposeNotifierProvider<video, List<Video>>.internal(
-  video.new,
-  name: r'videoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$videoHash,
+/// See also [VideoProvider].
+@ProviderFor(VideoProvider)
+final videoProviderProvider =
+    AutoDisposeNotifierProvider<VideoProvider, List<Video>>.internal(
+  VideoProvider.new,
+  name: r'videoProviderProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$videoProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$video = AutoDisposeNotifier<List<Video>>;
+typedef _$VideoProvider = AutoDisposeNotifier<List<Video>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

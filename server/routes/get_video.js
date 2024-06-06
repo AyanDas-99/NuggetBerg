@@ -20,7 +20,6 @@ getVideoRoute.get("/videos", async (req, res) => {
         },
       })
       .then((result) => {
-        console.log(result.data);
         result.data["items"] = filterShorts(result.data);
         res.json(result.data);
       })

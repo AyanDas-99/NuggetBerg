@@ -5,6 +5,7 @@ import 'package:nugget_berg/firebase_options.dart';
 import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
 import 'package:nugget_berg/state/auth/providers/is_logged_in.dart';
 import 'package:nugget_berg/state/providers/scaffold_messenger_key.dart';
+import 'package:nugget_berg/state/videos/provider/videos.dart';
 import 'package:nugget_berg/view/onboarding/onboarding_screen.dart';
 import 'package:nugget_berg/view/tabs/tab_view_controller.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLogged = ref.watch(isLoggedInProvider);
+    ref.watch(videoProviderProvider);
     final authLoading = ref.watch(
         authRepositoryNotifierProvider.select((value) => value.isLoading));
     return MaterialApp(
