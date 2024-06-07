@@ -8,7 +8,7 @@ part 'nugget_by_video_id.g.dart';
 @riverpod
 FutureOr<Nugget?> nuggetByVideo(NuggetByVideoRef ref, Video video) async {
   var response = await http
-      .get(Uri.parse('${Constants.baseUrl}/summary?videoId=${video.id}'));
+      .get(Uri.parse('${Constants.baseUrl}/summary/db?videoId=${video.id}'));
   if(response.statusCode != 200) return null;
   return Nugget.fromJson(response.body, video);
 }

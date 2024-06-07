@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nugget_berg/state/auth/providers/user.dart';
 import 'package:nugget_berg/state/nuggets/models/nugget.dart';
 import 'package:nugget_berg/view/tabs/home/components/dot_indicator.dart';
 import 'package:nugget_berg/view/tabs/home/components/key_point_widget.dart';
@@ -23,8 +24,12 @@ class _MainContentState extends ConsumerState<MainContent> {
   final carouselController = CarouselController();
   int selected = 0;
 
+  bool? viewed;
+
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(mongoUserProvider);
+    viewed = (user?.viewed.contains(widget.nugget.video.id));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
@@ -50,50 +55,54 @@ class _MainContentState extends ConsumerState<MainContent> {
                     const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
               ),
               const SizedBox(height: 10),
-                CarouselSlider(
-                  carouselController: carouselController,
-                  options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                    viewportFraction: 1,
-                    height: MediaQuery.of(context).size.height * 0.35,
-                    enlargeCenterPage: true,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        selected = index;
-                      });
-                    },
-                  ),
-                  items: [
-                    ...widget.nugget.points.map((e) => KeyPointWidget(point: e))
-                  ],
+              CarouselSlider(
+                carouselController: carouselController,
+                options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: 1,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  enlargeCenterPage: true,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      selected = index;
+                    });
+                  },
                 ),
+                items: [
+                  ...widget.nugget.points.map((e) => KeyPointWidget(point: e))
+                ],
+              ),
               const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...List.generate(
-                      widget.nugget.points.length,
-                      (index) => Padding(
-                        padding: const EdgeInsets.only(right: 4),
-                        child: DotIndicator(
-                          isActive: index == selected,
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ...List.generate(
+                    widget.nugget.points.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: DotIndicator(
+                        isActive: index == selected,
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(CupertinoIcons.heart),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: const Icon(CupertinoIcons.bookmark_fill),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    icon: (viewed == true)
+                        ? const Icon(CupertinoIcons.heart_fill, color: Colors.red)
+                        : const Icon(CupertinoIcons.heart),
+                    onPressed: () {
+                      ref.read(mongoUserProvider.notifier).addToFavourite(widget.nugget.video.id);
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(CupertinoIcons.bookmark_fill),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ],
           ),
           Transform.rotate(

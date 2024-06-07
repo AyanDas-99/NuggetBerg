@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'nuggets.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nuggetsHash() => r'52c8b965972969c12bfb2f40f78b5695c7134131';
+String _$mongoUserHash() => r'13282cb5e90f1705f570a464d6af121e120065d3';
 
-/// See also [Nuggets].
-@ProviderFor(Nuggets)
-final nuggetsProvider =
-    AutoDisposeNotifierProvider<Nuggets, List<Nugget>>.internal(
-  Nuggets.new,
-  name: r'nuggetsProvider',
+/// See also [MongoUser].
+@ProviderFor(MongoUser)
+final mongoUserProvider =
+    AutoDisposeNotifierProvider<MongoUser, userModel.User?>.internal(
+  MongoUser.new,
+  name: r'mongoUserProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$nuggetsHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$mongoUserHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Nuggets = AutoDisposeNotifier<List<Nugget>>;
+typedef _$MongoUser = AutoDisposeNotifier<userModel.User?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

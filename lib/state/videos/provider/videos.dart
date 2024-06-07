@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer' as dev;
 part 'videos.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class VideoProvider extends _$VideoProvider {
   @override
   List<Video> build() {

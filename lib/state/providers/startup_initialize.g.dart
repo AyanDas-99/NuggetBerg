@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'videos.dart';
+part of 'startup_initialize.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$videoProviderHash() => r'37a7f7f5a610e7214b62d6538d26fd687c87c3f0';
+String _$startupInitilizeHash() => r'8d94a4bdf833d0df9daf4faa5866fc18fbdfcb29';
 
-/// See also [VideoProvider].
-@ProviderFor(VideoProvider)
-final videoProviderProvider =
-    NotifierProvider<VideoProvider, List<Video>>.internal(
-  VideoProvider.new,
-  name: r'videoProviderProvider',
+/// See also [startupInitilize].
+@ProviderFor(startupInitilize)
+final startupInitilizeProvider = FutureProvider<void>.internal(
+  startupInitilize,
+  name: r'startupInitilizeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$videoProviderHash,
+      : _$startupInitilizeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$VideoProvider = Notifier<List<Video>>;
+typedef StartupInitilizeRef = FutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

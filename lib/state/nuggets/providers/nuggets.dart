@@ -14,7 +14,7 @@ class Nuggets extends _$Nuggets {
 
   loadVideos() async {
     print('Loading videos');
-    final videos = await ref.read(videoProviderProvider.notifier).updateList();
+    final videos = ref.read(videoProviderProvider);
     final videosNotifier = ref.read(videoProviderProvider.notifier);
 
     Nugget? first;
