@@ -4,7 +4,7 @@ const firebaseAdmin = require('firebase-admin')
 require('dotenv').config()
 const cors = require('cors')
 const getVideoRoute = require('./routes/get_video')
-const userRoute = require('./routes/user')
+const userRoute = require('./routes/user/user')
 const summaryRoute = require('./routes/summary/summary_route')
 const transcriptRoute = require('./routes/transcript_route');
 require('./utils/genai');
