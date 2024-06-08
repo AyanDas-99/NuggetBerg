@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nugget_berg/view/tabs/home/components/main_content.dart';
 
 class NuggetCard extends StatelessWidget {
   const NuggetCard({super.key});
@@ -35,9 +34,9 @@ class NuggetCard extends StatelessWidget {
                   ],
                 ),
               ),
-              child: Padding(
+              child: const Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 child: Text(
                   'How to get rich in your 20s',
                   style: TextStyle(

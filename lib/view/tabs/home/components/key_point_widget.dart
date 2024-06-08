@@ -34,7 +34,7 @@ class KeyPointWidget extends StatelessWidget {
             style: const TextStyle(fontSize: 15, color: Colors.black),
           ),
           ...point.subPoints.map((e) => RichText(
-              strutStyle: StrutStyle(height: 1.5),
+              strutStyle: const StrutStyle(height: 1.5),
               text: TextSpan(
                   style: const TextStyle(color: Colors.black),
                   children: [

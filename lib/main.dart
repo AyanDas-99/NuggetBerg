@@ -54,8 +54,7 @@ class AppStartupWidget extends ConsumerWidget {
             Text(e.toString()),
             TextButton(
               onPressed: () {
-                // ref.invalidate(startupInitilizeProvider);
-                Navigator.of(context).push(MaterialPageRoute(builder:(context) => StartupLoading(),));
+                ref.invalidate(startupInitilizeProvider);
               },
               child: const Text('Retry'),
             ),

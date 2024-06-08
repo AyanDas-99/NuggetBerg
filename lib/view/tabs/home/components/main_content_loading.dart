@@ -45,11 +45,11 @@ class MainContentLoading extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(CupertinoIcons.heart),
+                  icon: const Icon(CupertinoIcons.heart),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(CupertinoIcons.bookmark_fill),
+                  icon: const Icon(CupertinoIcons.bookmark_fill),
                   onPressed: () {},
                 ),
               ],

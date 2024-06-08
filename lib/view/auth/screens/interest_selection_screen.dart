@@ -34,8 +34,8 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
     return Scaffold(
       floatingActionButton: ElevatedButton(
           style: ButtonStyle(
-              backgroundColor: const MaterialStatePropertyAll(Colors.blue),
-              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+              backgroundColor: const WidgetStatePropertyAll(Colors.blue),
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)))),
           onPressed: proceed,
           child: const Text(

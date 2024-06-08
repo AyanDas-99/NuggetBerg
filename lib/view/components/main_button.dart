@@ -18,9 +18,9 @@ class MainButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ButtonStyle(
-            padding: MaterialStatePropertyAll(padding),
-            backgroundColor: MaterialStatePropertyAll(backgroundColor),
-            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            padding: WidgetStatePropertyAll(padding),
+            backgroundColor: WidgetStatePropertyAll(backgroundColor),
+            shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)))),
         onPressed: onPressed,
         child: child,

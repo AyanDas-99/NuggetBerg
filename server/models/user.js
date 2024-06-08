@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     favourites: [videoSchema],
-    viewed: [videoSchema]
+    viewed: [videoSchema],
+    bookmarks: [videoSchema],
 })
 
 const User = mongoose.model('User', userSchema);

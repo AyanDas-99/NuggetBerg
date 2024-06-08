@@ -18,26 +18,26 @@ class TabViewController extends ConsumerStatefulWidget {
 class _TabViewControllerState extends ConsumerState<TabViewController> {
   final tabs = <NavigationDestination>[
     NavigationDestination(
-      icon: Icon(Icons.home_outlined),
+      icon: const Icon(Icons.home_outlined),
       label: forYou,
-      selectedIcon: Icon(Icons.home),
+      selectedIcon: const Icon(Icons.home),
     ),
     NavigationDestination(
-      icon: Icon(CupertinoIcons.search_circle),
+      icon: const Icon(CupertinoIcons.search_circle),
       label: explore,
-      selectedIcon: Icon(
+      selectedIcon: const Icon(
         CupertinoIcons.search_circle_fill,
       ),
     ),
     NavigationDestination(
-      icon: Icon(Icons.bookmark_border_rounded),
+      icon: const Icon(Icons.bookmark_border_rounded),
       label: myLibrary,
-      selectedIcon: Icon(Icons.bookmark),
+      selectedIcon: const Icon(Icons.bookmark),
     ),
     NavigationDestination(
-      icon: Icon(Icons.settings_outlined),
+      icon: const Icon(Icons.settings_outlined),
       label: settings,
-      selectedIcon: Icon(Icons.settings),
+      selectedIcon: const Icon(Icons.settings),
     ),
   ];
 

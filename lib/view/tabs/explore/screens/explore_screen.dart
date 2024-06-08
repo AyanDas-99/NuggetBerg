@@ -41,11 +41,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
         children: [
           SearchBar(
             controller: searchContrller,
-            backgroundColor: const MaterialStatePropertyAll(Colors.white54),
+            backgroundColor: const WidgetStatePropertyAll(Colors.white54),
             hintText: searchFor,
             leading: const Icon(Icons.search),
-            elevation: const MaterialStatePropertyAll(0),
-            shape: MaterialStatePropertyAll(
+            elevation: const WidgetStatePropertyAll(0),
+            shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -64,7 +64,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           const SizedBox(height: 10),
           GridView(
               shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 5,
                 crossAxisSpacing: 5,

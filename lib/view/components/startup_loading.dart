@@ -30,8 +30,8 @@ class _StartupLoadingState extends State<StartupLoading>
             )
             .scale(
               duration: 1.seconds,
-              begin: Offset(0.7, 0.7),
-              end: Offset(1, 1),
+              begin: const Offset(0.7, 0.7),
+              end: const Offset(1, 1),
               curve: Curves.easeInOut,
             ),
       ),
