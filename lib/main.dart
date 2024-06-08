@@ -43,6 +43,7 @@ class AppStartupWidget extends ConsumerWidget {
     final appStartupState = ref.watch(startupInitilizeProvider);
 
     final isLogged = ref.watch(isLoggedInProvider);
+
     return appStartupState.when(
       // 3. loading state
       loading: () => const StartupLoading(),
@@ -53,7 +54,8 @@ class AppStartupWidget extends ConsumerWidget {
             Text(e.toString()),
             TextButton(
               onPressed: () {
-                ref.invalidate(startupInitilizeProvider);
+                // ref.invalidate(startupInitilizeProvider);
+                Navigator.of(context).push(MaterialPageRoute(builder:(context) => StartupLoading(),));
               },
               child: const Text('Retry'),
             ),

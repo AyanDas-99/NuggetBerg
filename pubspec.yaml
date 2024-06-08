@@ -48,6 +48,7 @@ dependencies:
   http: ^1.2.1
   hooks_riverpod: ^2.5.1
   flutter_hooks: ^0.20.5
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ dev_dependencies:
   riverpod_generator: ^2.4.0
   custom_lint: ^0.6.4
   build_runner: ^2.4.9
+  flutter_launcher_icons: ^0.13.1
 
 
 # For information on the generic Dart part of this file, see the
@@ -81,6 +83,8 @@ flutter:
     - assets/images/vacuum.jpg
     - assets/images/yt_loading.jpg
     - assets/images/chicken_nugget.png
+    - assets/logos/logo_transparent.png
+    - assets/logos/full_logo_transparent.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -116,3 +120,21 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logos/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/logos/logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/logos/logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/logos/logo.png"
