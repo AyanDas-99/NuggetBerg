@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/firebase_options.dart';
-import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
 import 'package:nugget_berg/state/auth/providers/is_logged_in.dart';
 import 'package:nugget_berg/state/providers/scaffold_messenger_key.dart';
 import 'package:nugget_berg/state/providers/startup_initialize.dart';

@@ -23,13 +23,14 @@ class MainContent extends ConsumerStatefulWidget {
 class _MainContentState extends ConsumerState<MainContent> {
   final carouselController = CarouselController();
   int selected = 0;
-
-  bool? viewed;
+  bool isFav = false;
 
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(mongoUserProvider);
-    viewed = (user?.viewed.contains(widget.nugget.video.id));
+    final favourites = user?.favourites.map((e) => e['video_id']) ?? [];
+    isFav = favourites.contains(widget.nugget.video.id);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
@@ -90,11 +91,17 @@ class _MainContentState extends ConsumerState<MainContent> {
               Row(
                 children: [
                   IconButton(
-                    icon: (viewed == true)
-                        ? const Icon(CupertinoIcons.heart_fill, color: Colors.red)
+                    icon: (isFav == true)
+                        ? const Icon(CupertinoIcons.heart_fill,
+                            color: Colors.red)
                         : const Icon(CupertinoIcons.heart),
                     onPressed: () {
-                      ref.read(mongoUserProvider.notifier).addToFavourite(widget.nugget.video.id);
+                      ref
+                          .read(mongoUserProvider.notifier)
+                          .addToFavourite(widget.nugget.video.id);
+                          setState(() {
+                            isFav = !isFav;
+                          });
                     },
                   ),
                   IconButton(

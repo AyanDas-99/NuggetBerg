@@ -7,8 +7,8 @@ import 'package:nugget_berg/state/auth/models/user_field_names.dart';
 class User {
   final String id;
   final String email;
-  final List<String> favourites;
-  final List<String> viewed;
+  final List<Map<String, dynamic>> favourites;
+  final List<Map<String, dynamic>> viewed;
   User({
     required this.id,
     required this.email,
@@ -19,8 +19,8 @@ class User {
   User copyWith({
     String? id,
     String? email,
-    List<String>? favourites,
-    List<String>? viewed,
+    List<Map<String, dynamic>>? favourites,
+    List<Map<String, dynamic>>? viewed,
   }) {
     return User(
       id: id ?? this.id,
@@ -34,12 +34,14 @@ class User {
     return User(
       id: map[UserFieldNames.id] as String,
       email: map[UserFieldNames.email] as String,
-      favourites: List<String>.from((map[UserFieldNames.favourites])),
-      viewed: List<String>.from((map[UserFieldNames.viewed]),
-    ));
+      favourites:
+          List<Map<String, dynamic>>.from((map[UserFieldNames.favourites])),
+      viewed: List<Map<String, dynamic>>.from((map[UserFieldNames.viewed])),
+    );
   }
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory User.fromJson(String source) =>
+      User.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -50,19 +52,15 @@ class User {
   bool operator ==(covariant User other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
-    return 
-      other.id == id &&
-      other.email == email &&
-      listEquals(other.favourites, favourites) &&
-      listEquals(other.viewed, viewed);
+
+    return other.id == id &&
+        other.email == email &&
+        listEquals(other.favourites, favourites) &&
+        listEquals(other.viewed, viewed);
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      email.hashCode ^
-      favourites.hashCode ^
-      viewed.hashCode;
+    return id.hashCode ^ email.hashCode ^ favourites.hashCode ^ viewed.hashCode;
   }
 }

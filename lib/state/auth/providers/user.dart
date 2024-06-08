@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nugget_berg/state/auth/models/user.dart' as userModel;
 import 'package:nugget_berg/state/constants.dart';
@@ -33,16 +35,19 @@ class MongoUser extends _$MongoUser {
   }
 
   Future addToFavourite(String videoId) async {
+    dev.log('Adding to favourite..');
+    try {
     final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-    dev.log(token.toString());
     if (token == null) return;
     final response = await http.post(
         Uri.parse('${Constants.baseUrl}/user/add-to-favourite'),
         headers: {...Constants.contentType, 'accessToken': token},
-        body: {"video_id": videoId});
-    dev.log(response.body);
+        body: jsonEncode({"video_id": videoId}));
     if (response.statusCode == 200) {
       state = userModel.User.fromJson(response.body);
+    }
+    } catch(e) {
+      dev.log('Error addToFav', error: e);
     }
   }
 }
