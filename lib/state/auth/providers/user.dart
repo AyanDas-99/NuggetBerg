@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer' as dev;
 part 'user.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MongoUser extends _$MongoUser {
   @override
   userModel.User? build() {
@@ -19,18 +19,42 @@ class MongoUser extends _$MongoUser {
   Future getUser() async {
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      dev.log(token.toString());
       if (token == null) return;
       final response = await http.get(
         Uri.parse('${Constants.baseUrl}/user'),
         headers: {...Constants.contentType, 'accessToken': token},
       );
-      dev.log(response.body);
+      if (response.statusCode == 200) {
+        state = userModel.User.fromJson(response.body);
+
+        dev.log('Got user from response and state updated');
+      } else {
+        dev.log(response.toString());
+      }
+    } catch (e) {
+      dev.log('Error getting user from mongo', error: e);
+    }
+  }
+
+  Future setNextPageToken(String? nextPage) async {
+    dev.log('Setting nextPageToken');
+    if (nextPage == null) {
+      dev.log('Next page token empty');
+      return;
+    }
+
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      if (token == null) return;
+      final response = await http.post(
+          Uri.parse('${Constants.baseUrl}/user/add-nextpage'),
+          headers: {...Constants.contentType, 'accessToken': token},
+          body: jsonEncode({"nextPage": nextPage}));
       if (response.statusCode == 200) {
         state = userModel.User.fromJson(response.body);
       }
     } catch (e) {
-      dev.log('Error getting user from mongo', error: e);
+      dev.log('Error addToFav', error: e);
     }
   }
 

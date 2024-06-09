@@ -77,6 +77,18 @@ userRoute.post('/user/add-to-viewed', auth, async (req, res) => {
     }
 })
 
+// Add nextPage string to user
+userRoute.post('/user/add-nextpage', auth, async (req, res) => {
+    try {
+        const { nextPage } = req.body;
+        let user = await User.findByIdAndUpdate(req.uid, { nextPage });
+        user = await user.save();
+        res.json(user);
+    } catch (e) {
+        return res.status(500).json({ error: e.message });
+    }
+})
+
 userRoute.get('/user', auth, async (req, res) => {
     try {
         const user_id = req.uid;

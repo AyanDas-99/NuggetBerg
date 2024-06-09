@@ -26,6 +26,12 @@ class _MainContentState extends ConsumerState<MainContent> {
   bool isFav = false;
 
   @override
+  void initState() {
+    super.initState();
+    ref.read(mongoUserProvider.notifier).addToViewed(widget.nugget.video.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = ref.watch(mongoUserProvider);
     final favourites = user?.favourites.map((e) => e['video_id']) ?? [];

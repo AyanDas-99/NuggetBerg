@@ -6,7 +6,7 @@ part of 'nuggets.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nuggetsHash() => r'52c8b965972969c12bfb2f40f78b5695c7134131';
+String _$nuggetsHash() => r'fef9cd663c782353ed140d00272d7b7a953cf047';
 
 /// See also [Nuggets].
 @ProviderFor(Nuggets)

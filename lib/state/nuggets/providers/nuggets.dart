@@ -1,5 +1,7 @@
+import 'package:nugget_berg/state/auth/providers/user.dart';
 import 'package:nugget_berg/state/nuggets/models/nugget.dart';
 import 'package:nugget_berg/state/nuggets/providers/nugget_by_video_id.dart';
+import 'package:nugget_berg/state/videos/provider/next_page_token.dart';
 import 'package:nugget_berg/state/videos/provider/videos.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'dart:developer' as dev;
@@ -42,10 +44,9 @@ class Nuggets extends _$Nuggets {
 
     if (videos.length <= nextIndex) {
       print('No more videos to show for');
-      print('Videos length: ${videos.length}');
-      print('NextIndex: $nextIndex');
+      getNextPage(currentIndex);
       return;
-    }
+   }
     Nugget? next;
 
     try {
@@ -57,10 +58,20 @@ class Nuggets extends _$Nuggets {
       }
     } on RangeError catch (e) {
       dev.log('Error getting next nugget', error: e);
-    }
+      getNextPage(currentIndex);
+      return;
+     }
     if (next != null) {
       state = [...state, next];
       print(state);
     }
+  }
+
+  getNextPage(int currentIndex) async {
+    dev.log('Getting next page');
+    String? nextPage = ref.read(nextPageTokenProvider);
+    await ref.read(mongoUserProvider.notifier).setNextPageToken(nextPage);
+    await ref.read(videoProviderProvider.notifier).updateList();
+    getNextNuggetOrRemoveVideo(currentIndex);
   }
 }

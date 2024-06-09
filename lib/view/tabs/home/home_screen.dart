@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nugget_berg/state/auth/providers/user.dart';
 import 'package:nugget_berg/state/nuggets/providers/nuggets.dart';
-import 'package:nugget_berg/state/videos/models/video.dart';
-import 'package:nugget_berg/state/videos/provider/videos.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/tabs/home/components/main_content.dart';
 import 'package:nugget_berg/view/tabs/home/components/main_content_loading.dart';
@@ -45,7 +44,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
-          home,
+          '$home ${ref.watch(mongoUserProvider)!.id}',
           style: const TextStyle(fontWeight: FontWeight.w200),
         ),
         surfaceTintColor: Colors.transparent,

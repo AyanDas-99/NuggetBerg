@@ -9,11 +9,13 @@ class User {
   final String email;
   final List<Map<String, dynamic>> favourites;
   final List<Map<String, dynamic>> viewed;
+  final String? nextPage;
   User({
     required this.id,
     required this.email,
     required this.favourites,
     required this.viewed,
+    this.nextPage,
   });
 
   User copyWith({
@@ -21,12 +23,14 @@ class User {
     String? email,
     List<Map<String, dynamic>>? favourites,
     List<Map<String, dynamic>>? viewed,
+    String? nextPage,
   }) {
     return User(
       id: id ?? this.id,
       email: email ?? this.email,
       favourites: favourites ?? this.favourites,
       viewed: viewed ?? this.viewed,
+      nextPage: nextPage,
     );
   }
 
@@ -37,6 +41,7 @@ class User {
       favourites:
           List<Map<String, dynamic>>.from((map[UserFieldNames.favourites])),
       viewed: List<Map<String, dynamic>>.from((map[UserFieldNames.viewed])),
+      nextPage: map[UserFieldNames.nextPage],
     );
   }
 

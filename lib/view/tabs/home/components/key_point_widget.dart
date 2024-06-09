@@ -8,7 +8,6 @@ class KeyPointWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -25,32 +24,34 @@ class KeyPointWidget extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 5),
       padding: const EdgeInsets.all(7),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            point.header,
-            style: const TextStyle(fontSize: 15, color: Colors.black),
-          ),
-          ...point.subPoints.map((e) => RichText(
-              strutStyle: const StrutStyle(height: 1.5),
-              text: TextSpan(
-                  style: const TextStyle(color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: '${e.title}  ',
-                      style: const TextStyle(
-                        fontSize: 15,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              point.header,
+              style: const TextStyle(fontSize: 15, color: Colors.black),
+            ),
+            ...point.subPoints.map((e) => RichText(
+                strutStyle: const StrutStyle(height: 1.5),
+                text: TextSpan(
+                    style: const TextStyle(color: Colors.black),
+                    children: [
+                      TextSpan(
+                        text: '${e.title}  ',
+                        style: const TextStyle(
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: e.text,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w200, fontSize: 12),
-                    ),
-                  ]))),
-        ],
+                      TextSpan(
+                        text: e.text,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w200, fontSize: 12),
+                      ),
+                    ]))),
+          ],
+        ),
       ),
     );
   }

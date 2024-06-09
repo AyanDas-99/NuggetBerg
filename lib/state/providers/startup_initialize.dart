@@ -7,5 +7,5 @@ part 'startup_initialize.g.dart';
 @Riverpod(keepAlive: true)
 FutureOr<void> startupInitilize(StartupInitilizeRef ref) async {
   await ref.read(mongoUserProvider.notifier).getUser();
-  await ref.read(videoProviderProvider.notifier).updateList();
+  final videos = await ref.read(videoProviderProvider.notifier).updateList();
 }

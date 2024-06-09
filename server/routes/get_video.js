@@ -1,10 +1,12 @@
 const axios = require("axios");
 const express = require("express");
 const filterShorts = require("../utils/filter_shorts");
+const User = require('../models/user');
+const auth = require('../middleware/auth');
 
 const getVideoRoute = express.Router();
 
-getVideoRoute.get("/videos", async (req, res) => {
+getVideoRoute.get("/videos", auth, async (req, res) => {
   const { nextPage } = req.query;
   try {
     axios
@@ -19,7 +21,7 @@ getVideoRoute.get("/videos", async (req, res) => {
           pageToken: nextPage,
         },
       })
-      .then((result) => {
+      .then(async (result) => {
         result.data["items"] = filterShorts(result.data);
         res.json(result.data);
       })
