@@ -64,6 +64,7 @@ dev_dependencies:
   custom_lint: ^0.6.4
   build_runner: ^2.4.9
   flutter_launcher_icons: ^0.13.1
+  mocktail: ^1.0.3
 
 
 # For information on the generic Dart part of this file, see the

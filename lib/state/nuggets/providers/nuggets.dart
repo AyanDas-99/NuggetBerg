@@ -9,6 +9,7 @@ part 'nuggets.g.dart';
 
 @riverpod
 class Nuggets extends _$Nuggets {
+
   @override
   List<Nugget> build() {
     return [];
@@ -46,7 +47,7 @@ class Nuggets extends _$Nuggets {
       print('No more videos to show for');
       getNextPage(currentIndex);
       return;
-   }
+    }
     Nugget? next;
 
     try {
@@ -60,7 +61,7 @@ class Nuggets extends _$Nuggets {
       dev.log('Error getting next nugget', error: e);
       getNextPage(currentIndex);
       return;
-     }
+    }
     if (next != null) {
       state = [...state, next];
       print(state);

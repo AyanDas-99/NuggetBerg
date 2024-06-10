@@ -37,5 +37,5 @@ class Video extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, title, channelTitle, thumbnail];
+  List<Object?> get props => [id, title, channelTitle, thumbnail, description, channelId];
 }
