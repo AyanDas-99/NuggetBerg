@@ -1,4 +1,4 @@
-# nugget_berg
+# NuggetBerg
 
 A new Flutter project.
 

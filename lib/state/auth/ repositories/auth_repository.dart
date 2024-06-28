@@ -16,6 +16,7 @@ part 'auth_repository.g.dart';
 class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
   @override
   AuthState build() {
+    seeAuthChanges();
     if (_fAUth.currentUser != null &&
         _fAUth.currentUser?.emailVerified == true) {
       return AuthState(
@@ -31,6 +32,22 @@ class AuthRepositoryNotifier extends _$AuthRepositoryNotifier {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   final userStorage = UserStorageRepository();
+
+  void seeAuthChanges() async {
+    _fAUth.authStateChanges().listen(
+      (User? user) {
+        if (user == null) {
+          state = const AuthState.unknown();
+        } else {
+          state = AuthState(
+              authResult: AuthResult.success,
+              isLoading: false,
+              userId: user.uid);
+        }
+      },
+    );
+  }
+
   Future googleLogin() async {
     state = state.copyWithIsLoading(true);
     try {

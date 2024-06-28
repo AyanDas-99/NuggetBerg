@@ -20,6 +20,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLogged = ref.watch(isLoggedInProvider);
     return MaterialApp(
       scaffoldMessengerKey: ref.watch(scaffoldMessagerKeyProvider),
       title: 'Flutter Demo',
@@ -29,7 +30,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const AppStartupWidget(),
+      home: isLogged ? const AppStartupWidget() : const OnBoardingScreen(),
     );
   }
 }
@@ -41,8 +42,6 @@ class AppStartupWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 2. eagerly initialize startupInitializeProvider (and all the providers it depends on)
     final appStartupState = ref.watch(startupInitilizeProvider);
-
-    final isLogged = ref.watch(isLoggedInProvider);
 
     return appStartupState.when(
       // 3. loading state
@@ -62,8 +61,7 @@ class AppStartupWidget extends ConsumerWidget {
         ),
       ),
       // 6. success - now load the main app
-      data: (_) =>
-          isLogged ? const TabViewController() : const OnBoardingScreen(),
+      data: (_) => const TabViewController(),
     );
   }
 }
