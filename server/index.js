@@ -27,8 +27,7 @@ app.get("/", (req, res) => {
 })
 
 // Firebase admin initialization
-var serviceAccount = require("/home/ayan/Downloads/nuggetberg-7bbed-firebase-adminsdk-rmucu-7ba43897ec.json");
-
+var serviceAccount = require("/home/ayan/Downloads/nuggetberg-7bbed-firebase-adminsdk-rmucu-72564cb1e2.json");
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(serviceAccount),
 });
