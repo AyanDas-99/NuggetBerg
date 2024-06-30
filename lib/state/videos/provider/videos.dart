@@ -19,14 +19,14 @@ class VideoProvider extends _$VideoProvider {
     if (token == null) return [];
     // video repository
     var videoRepository = ref.read(videoRepositoryProvider);
-    var videos = await videoRepository.getVideos(
+    var videosAndNextPageToken = await videoRepository.getVideos(
         accessToken: token, nextPageToken: ref.read(nextPageTokenProvider));
-    state = [...state, ...videos];
+    state = [...state, ...videosAndNextPageToken.videos];
     dev.log('Videos state set as $state');
-    // TODO: set next page token
-    // ref.read(nextPageTokenProvider).(
-    //       json.decode(response.body)['nextPageToken'],
-    //     );
+    //setting next page token
+    ref
+        .read(nextPageTokenProvider.notifier)
+        .update(videosAndNextPageToken.nextPageToken);
     return state;
   }
 
