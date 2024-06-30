@@ -15,7 +15,7 @@ class Nuggets extends _$Nuggets {
     return [];
   }
 
-  loadVideos() async {
+  loadNuggets() async {
     print('Loading videos');
     final videos = ref.read(videoProviderProvider);
     final videosNotifier = ref.read(videoProviderProvider.notifier);
@@ -32,10 +32,10 @@ class Nuggets extends _$Nuggets {
       state = [first];
       print(state);
     }
-    getNextNuggetOrRemoveVideo(0);
+    getNextNuggetOrRemoveVideo(currentIndex: 0);
   }
 
-  getNextNuggetOrRemoveVideo(int currentIndex) async {
+  getNextNuggetOrRemoveVideo({required int currentIndex}) async {
     print('Get next called');
     final videos = ref.read(videoProviderProvider);
     final videosNotifier = ref.read(videoProviderProvider.notifier);
@@ -61,6 +61,8 @@ class Nuggets extends _$Nuggets {
       dev.log('Error getting next nugget', error: e);
       getNextPage(currentIndex);
       return;
+    } on Exception catch (e) {
+      dev.log('Error getting next nugget', error: e);
     }
     if (next != null) {
       state = [...state, next];
@@ -73,6 +75,6 @@ class Nuggets extends _$Nuggets {
     String? nextPage = ref.read(nextPageTokenProvider);
     await ref.read(mongoUserProvider.notifier).setNextPageToken(nextPage);
     await ref.read(videoProviderProvider.notifier).updateList();
-    getNextNuggetOrRemoveVideo(currentIndex);
+    getNextNuggetOrRemoveVideo(currentIndex: currentIndex);
   }
 }
