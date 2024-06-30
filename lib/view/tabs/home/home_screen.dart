@@ -19,7 +19,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(nuggetsProvider.notifier).loadVideos();
+    ref.read(nuggetsProvider.notifier).loadNuggets();
   }
 
   int currentIndex = 0;
@@ -29,7 +29,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       currentIndex = current;
       ref
           .read(nuggetsProvider.notifier)
-          .getNextNuggetOrRemoveVideo(currentIndex);
+          .getNextNuggetOrRemoveVideo(currentIndex: currentIndex);
     }
   }
 

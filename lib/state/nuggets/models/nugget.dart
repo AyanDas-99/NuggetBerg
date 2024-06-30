@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 import 'package:nugget_berg/state/nuggets/strings/nugget_fields.dart';
 import 'package:nugget_berg/state/videos/models/video.dart';
 
-class Nugget {
+class Nugget extends Equatable {
   final Video video;
   final List<Point> points;
   const Nugget({
@@ -29,9 +30,12 @@ class Nugget {
   // String toString() => 'Nugget(videoId: $videoId, points: $points)';
   @override
   String toString() => 'Nugget(videoId: ${video.id})';
+
+  @override
+  List<Object?> get props => [video, points];
 }
 
-class Point {
+class Point extends Equatable{
   final String header;
   final List<SubPoint> subPoints;
   const Point({
@@ -56,9 +60,12 @@ class Point {
 
   @override
   String toString() => 'Point(header: $header, subPoints: $subPoints)';
+  
+  @override
+  List<Object?> get props => [header, subPoints];
 }
 
-class SubPoint {
+class SubPoint extends Equatable{
   final String title;
   final String text;
 
@@ -79,4 +86,7 @@ class SubPoint {
 
   @override
   String toString() => 'Point(title: $title, text: $text)';
+  
+  @override
+  List<Object?> get props => [title, text];
 }
