@@ -6,7 +6,7 @@ part of 'nugget_by_video_id.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nuggetByVideoHash() => r'16a92ed45ee81eeab767a5c1f7d61ab811adfa5b';
+String _$nuggetByVideoHash() => r'771a5e3cc246490b9e0d49917276e5a5a9611a97';
 
 /// Copied from Dart SDK
 class _SystemHash {
