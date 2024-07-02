@@ -2,9 +2,10 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
 import 'package:nugget_berg/state/auth/models/user_field_names.dart';
 
-class User {
+class User extends Equatable{
   final String id;
   final String email;
   final List<Map<String, dynamic>> favourites;
@@ -68,4 +69,7 @@ class User {
   int get hashCode {
     return id.hashCode ^ email.hashCode ^ favourites.hashCode ^ viewed.hashCode;
   }
+  
+  @override
+  List<Object?> get props => [id, email, favourites, viewed, nextPage];
 }

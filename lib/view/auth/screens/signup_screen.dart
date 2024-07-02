@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/auth/repositories/auth_repository.dart';
 import 'package:nugget_berg/state/auth/models/auth_result.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/components/main_button.dart';

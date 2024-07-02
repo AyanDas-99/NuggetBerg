@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/auth/repositories/auth_repository.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/components/main_button.dart';
 

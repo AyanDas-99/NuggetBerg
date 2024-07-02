@@ -2,7 +2,7 @@ import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nugget_berg/state/auth/%20repositories/auth_repository.dart';
+import 'package:nugget_berg/state/auth/repositories/auth_repository.dart';
 import 'package:nugget_berg/state/constants.dart';
 
 class UserStorageRepository {

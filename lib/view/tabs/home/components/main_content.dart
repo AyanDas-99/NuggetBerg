@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/providers/user.dart';
+import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/state/nuggets/models/nugget.dart';
 import 'package:nugget_berg/view/tabs/home/components/dot_indicator.dart';
 import 'package:nugget_berg/view/tabs/home/components/key_point_widget.dart';

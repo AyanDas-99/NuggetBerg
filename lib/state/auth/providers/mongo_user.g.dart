@@ -1,16 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'mongo_user.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mongoUserHash() => r'2f432998cc934dc0492b42712097689ff9d4dee1';
+String _$mongoUserHash() => r'41376355130c2a9ece0a08a7e302810646965dc9';
 
 /// See also [MongoUser].
 @ProviderFor(MongoUser)
-final mongoUserProvider = NotifierProvider<MongoUser, userModel.User?>.internal(
+final mongoUserProvider =
+    NotifierProvider<MongoUser, user_model.User?>.internal(
   MongoUser.new,
   name: r'mongoUserProvider',
   debugGetCreateSourceHash:
@@ -19,6 +20,6 @@ final mongoUserProvider = NotifierProvider<MongoUser, userModel.User?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$MongoUser = Notifier<userModel.User?>;
+typedef _$MongoUser = Notifier<user_model.User?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

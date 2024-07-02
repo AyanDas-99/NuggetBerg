@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/providers/user.dart';
+import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/state/nuggets/providers/nuggets.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/tabs/home/components/main_content.dart';

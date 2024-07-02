@@ -1,4 +1,4 @@
-import 'package:nugget_berg/state/auth/providers/user.dart';
+import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/state/nuggets/models/nugget.dart';
 import 'package:nugget_berg/state/nuggets/providers/nugget_by_video_id.dart';
 import 'package:nugget_berg/state/videos/provider/next_page_token.dart';
@@ -70,9 +70,11 @@ class Nuggets extends _$Nuggets {
     }
   }
 
+  // FIXME: not working, with test
   getNextPage(int currentIndex) async {
-    dev.log('Getting next page');
+    print('Getting next page');
     String? nextPage = ref.read(nextPageTokenProvider);
+    print(nextPage);
     await ref.read(mongoUserProvider.notifier).setNextPageToken(nextPage);
     await ref.read(videoProviderProvider.notifier).updateList();
     getNextNuggetOrRemoveVideo(currentIndex: currentIndex);

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:nugget_berg/state/auth/%20repositories/user_storage_repository.dart';
+import 'package:nugget_berg/state/auth/repositories/user_storage_repository.dart';
 import 'package:nugget_berg/state/auth/models/auth_result.dart';
 import 'package:nugget_berg/state/auth/models/auth_state.dart';
 import 'package:nugget_berg/state/providers/scaffold_messenger.dart';
