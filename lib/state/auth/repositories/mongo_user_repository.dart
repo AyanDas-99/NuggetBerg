@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nugget_berg/state/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:nugget_berg/state/auth/models/user.dart' as userModel;
+import 'package:nugget_berg/state/auth/models/user.dart' as user_model;
 import 'dart:developer' as dev;
 
 class MongoUserRepository {
-  Future<userModel.User?> getUser() async {
+  Future<user_model.User?> getUser() async {
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       if (token == null) {
@@ -19,7 +19,7 @@ class MongoUserRepository {
         headers: {...Constants.contentType, 'accessToken': token},
       );
       if (response.statusCode == 200) {
-        return userModel.User.fromJson(response.body);
+        return user_model.User.fromJson(response.body);
       } else {
         dev.log(response.toString());
         return null;
@@ -30,7 +30,7 @@ class MongoUserRepository {
     }
   }
 
-  Future<userModel.User?> setNextPageToken(String? nextPage) async {
+  Future<user_model.User?> setNextPageToken(String? nextPage) async {
     dev.log('Setting nextPageToken');
     if (nextPage == null) {
       print('Next page token empty');
@@ -49,18 +49,18 @@ class MongoUserRepository {
           headers: {...Constants.contentType, 'accessToken': token},
           body: jsonEncode({"nextPage": nextPage}));
       if (response.statusCode == 200) {
-        return userModel.User.fromJson(response.body);
+        return user_model.User.fromJson(response.body);
       } else {
         dev.log(response.toString());
         return null;
       }
     } catch (e) {
-      dev.log('Error addToFav', error: e);
+      dev.log('Error setting next page token to mongo', error: e);
       return null;
     }
   }
 
-  Future<userModel.User?> addToFavourite(String videoId) async {
+  Future<user_model.User?> addToFavourite(String videoId) async {
     dev.log('Adding to favourite..');
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
@@ -73,7 +73,7 @@ class MongoUserRepository {
           headers: {...Constants.contentType, 'accessToken': token},
           body: jsonEncode({"video_id": videoId}));
       if (response.statusCode == 200) {
-        return userModel.User.fromJson(response.body);
+        return user_model.User.fromJson(response.body);
       } else {
         dev.log(response.toString());
         return null;
@@ -84,7 +84,7 @@ class MongoUserRepository {
     }
   }
 
-  Future<userModel.User?> addToViewed(String videoId) async {
+  Future<user_model.User?> addToViewed(String videoId) async {
     dev.log('Adding to viewed..');
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
@@ -97,7 +97,7 @@ class MongoUserRepository {
           headers: {...Constants.contentType, 'accessToken': token},
           body: jsonEncode({"video_id": videoId}));
       if (response.statusCode == 200) {
-        return userModel.User.fromJson(response.body);
+        return user_model.User.fromJson(response.body);
       } else {
         dev.log(response.toString());
         return null;

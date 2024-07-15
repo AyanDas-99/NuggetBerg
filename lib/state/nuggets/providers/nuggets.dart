@@ -9,14 +9,12 @@ part 'nuggets.g.dart';
 
 @riverpod
 class Nuggets extends _$Nuggets {
-
   @override
   List<Nugget> build() {
     return [];
   }
 
   loadNuggets() async {
-    print('Loading videos');
     final videos = ref.read(videoProviderProvider);
     final videosNotifier = ref.read(videoProviderProvider.notifier);
 
@@ -70,7 +68,6 @@ class Nuggets extends _$Nuggets {
     }
   }
 
-  // FIXME: not working, with test
   getNextPage(int currentIndex) async {
     print('Getting next page');
     String? nextPage = ref.read(nextPageTokenProvider);

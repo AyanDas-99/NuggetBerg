@@ -27,7 +27,7 @@ ProviderContainer createContainer({
 class MockMongoUserRepository extends Mock implements MongoUserRepository {
   @override
   Future<User?> getUser() async{
-    return User(id: 'id', email: 'email', favourites: [], viewed: [], nextPage: '1');
+    return const User(id: 'id', email: 'email', favourites: [], viewed: [], nextPage: '1');
   }
 }
 
@@ -49,7 +49,7 @@ void main() {
   test('mongoUserRepository sets and returns nextToken', () async {
     when(() => mockMongoUserRepository.setNextPageToken('2'))
         .thenAnswer((_) async {
-      return User(id: 'id', email: 'email', favourites: [], viewed: [], nextPage: '2');
+      return const User(id: 'id', email: 'email', favourites: [], viewed: [], nextPage: '2');
     });
     // when(() => mockMongoUserRepository.getUser())
     //     .thenAnswer((_) async {
@@ -60,7 +60,7 @@ void main() {
 
     await container.read(mongoUserProvider.notifier).setNextPageToken('2');
 
-    expect(container.read(mongoUserProvider), User(id: 'id', email: 'email', favourites: [], viewed: [], nextPage: '2'));
+    expect(container.read(mongoUserProvider), const User(id: 'id', email: 'email', favourites: [], viewed: [], nextPage: '2'));
     
   });
 }

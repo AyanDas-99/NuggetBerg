@@ -38,14 +38,14 @@ class MockVideoRepository extends Mock implements VideoRepository {
   @override
   Future<Nugget?> getNuggetFromVideo({required Video video}) async {
     if (video.id == '2') return null;
-    return Nugget(video: video, points: []);
+    return Nugget(video: video, points: const []);
   }
 }
 
 class MockMongoUserRepository extends Mock implements MongoUserRepository {
   @override
   Future<User?> getUser() async {
-    return User(id: 'id', email: 'email', favourites: [], viewed: []);
+    return const User(id: 'id', email: 'email', favourites: [], viewed: []);
   }
 }
 
@@ -135,26 +135,26 @@ void main() {
     when(() => mockVideoRepository!.getVideos(
           accessToken: 'token',
         )).thenAnswer((annotation) async {
-      return VideosAndNextPageToken(
+      return const VideosAndNextPageToken(
           videos: videosFromPage1, nextPageToken: '2');
     });
     when(() => mockVideoRepository!.getVideos(
         accessToken: 'token',
         nextPageToken: '1')).thenAnswer((annotation) async {
-      return VideosAndNextPageToken(
+      return const VideosAndNextPageToken(
           videos: videosFromPage1, nextPageToken: '2');
     });
     when(() => mockVideoRepository!.getVideos(
         accessToken: 'token',
         nextPageToken: '2')).thenAnswer((annotation) async {
-      return VideosAndNextPageToken(
+      return const VideosAndNextPageToken(
           videos: videosFromPage2, nextPageToken: '3');
     });
   }
 
   void mongoUserRepositorySetup() {
     when(() => mockMongoUserRepository!.setNextPageToken('2')).thenAnswer(
-        (_) async => User(
+        (_) async => const User(
             id: '', email: 'email', favourites: [], viewed: [], nextPage: '2'));
     when(() => mockMongoUserRepository!.setNextPageToken(null))
         .thenAnswer((_) async => null);

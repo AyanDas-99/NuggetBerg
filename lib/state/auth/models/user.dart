@@ -11,7 +11,7 @@ class User extends Equatable{
   final List<Map<String, dynamic>> favourites;
   final List<Map<String, dynamic>> viewed;
   final String? nextPage;
-  User({
+  const User({
     required this.id,
     required this.email,
     required this.favourites,
