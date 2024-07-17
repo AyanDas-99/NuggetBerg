@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nugget_berg/state/videos/models/video.dart';
 
 class NuggetCard extends StatelessWidget {
-  const NuggetCard({super.key});
+  const NuggetCard({super.key, required this.video});
+  final Video video;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class NuggetCard extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           children: [
             Image.network(
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOU4ZwXLhqyebgok9yT4o0-vskE_hwEvZDtA&usqp=CAU',
+              video.thumbnail,
               height: 200,
               width: double.infinity,
               fit: BoxFit.fitWidth,
@@ -34,12 +36,11 @@ class NuggetCard extends StatelessWidget {
                   ],
                 ),
               ),
-              child: const Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 child: Text(
-                  'How to get rich in your 20s',
-                  style: TextStyle(
+                  video.title,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w200,
                     fontSize: 18,
                     color: Colors.white,

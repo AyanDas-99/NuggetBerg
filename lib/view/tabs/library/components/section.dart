@@ -20,15 +20,15 @@ class Section extends StatelessWidget {
         const SizedBox(height: 10),
         ...List.generate(
           4,
-          (index) => const Padding(
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: NuggetCard(),
+          (index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Container(),
           ),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => LibraryFullList(title: bookmarks),
+              builder: (context) => LibraryFullList(title: bookmarks, videos: [],),
             ));
           },
           child: Text(

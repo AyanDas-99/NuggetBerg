@@ -35,4 +35,29 @@ getVideoRoute.get("/videos", auth, async (req, res) => {
   }
 });
 
+getVideoRoute.get("/video-by-id",  async (req, res) => {
+  const { id } = req.query;
+  try {
+    axios
+      .get("https://www.googleapis.com/youtube/v3/videos", {
+        params: {
+          key: process.env.API_KEY,
+          part: "snippet,contentDetails,statistics",
+          type: "video",
+          id: id, 
+        },
+      })
+      .then(async (result) => {
+        res.json(result.data);
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  } catch (e) {
+    res.status(500).json({
+      error: e.message,
+    });
+  }
+});
+
 module.exports = getVideoRoute;

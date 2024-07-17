@@ -18,14 +18,25 @@ class Video extends Equatable {
   });
 
   factory Video.fromMap(Map<String, dynamic> map) {
-    return Video(
-      id: map['id']['videoId'] as String,
-      channelId: map['snippet']['channelId'] as String,
-      title: map['snippet']['title'] as String,
-      description: map['snippet']['description'] as String,
-      thumbnail: map['snippet']['thumbnails']['default']['url'] as String,
-      channelTitle: map['snippet']['channelTitle'] as String,
-    );
+    try {
+      return Video(
+        id: map['id']['videoId'] as String,
+        channelId: map['snippet']['channelId'] as String,
+        title: map['snippet']['title'] as String,
+        description: map['snippet']['description'] as String,
+        thumbnail: map['snippet']['thumbnails']['default']['url'] as String,
+        channelTitle: map['snippet']['channelTitle'] as String,
+      );
+    } on TypeError catch (e) {
+      return Video(
+        id: map['id'] as String,
+        channelId: map['snippet']['channelId'] as String,
+        title: map['snippet']['title'] as String,
+        description: map['snippet']['description'] as String,
+        thumbnail: map['snippet']['thumbnails']['default']['url'] as String,
+        channelTitle: map['snippet']['channelTitle'] as String,
+      );
+    }
   }
 
   factory Video.fromJson(String source) =>
@@ -37,5 +48,6 @@ class Video extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, title, channelTitle, thumbnail, description, channelId];
+  List<Object?> get props =>
+      [id, title, channelTitle, thumbnail, description, channelId];
 }

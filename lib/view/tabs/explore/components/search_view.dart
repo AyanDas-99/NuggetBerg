@@ -29,9 +29,9 @@ class SearchView extends StatelessWidget {
         body: ListView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: 10,
-          itemBuilder: (context, index) => const Padding(
+          itemBuilder: (context, index) => Padding(
             padding: EdgeInsets.only(bottom: 8.0),
-            child: NuggetCard(),
+            child: Container(),
           ),
         ),
       ),
