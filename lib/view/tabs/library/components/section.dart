@@ -39,7 +39,6 @@ class _SectionState extends ConsumerState<Section> {
           videosList!.add(video);
         }
       }
-      print(videosList);
       setState(() {});
     } catch (e) {
       dev.log("Error in loadVideos | library_full_list.dart", error: e);
@@ -57,8 +56,14 @@ class _SectionState extends ConsumerState<Section> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: (videosList == null)
-          ? List.generate(
+      children: [
+        Text(
+          widget.section,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: 20),
+        if (videosList == null)
+          ...List.generate(
               2,
               (index) => Shimmer.fromColors(
                     baseColor: Colors.grey,
@@ -73,38 +78,33 @@ class _SectionState extends ConsumerState<Section> {
                       ),
                     ),
                   ))
-          : [
-              Text(
-                widget.section,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+        else ...[
+          ...List.generate(
+            videosList!.length,
+            (index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: NuggetCard(
+                video: videosList![index],
               ),
-              const SizedBox(height: 10),
-              ...List.generate(
-                videosList!.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: NuggetCard(
-                    video: videosList![index],
+            ),
+          ),
+          if (videosList!.length < widget.videosIds.length)
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LibraryFullList(
+                    title: widget.section,
+                    videos: widget.videosIds,
                   ),
-                ),
+                ));
+              },
+              child: Text(
+                showMore,
+                style: const TextStyle(decoration: TextDecoration.underline),
               ),
-              if(videosList!.length < widget.videosIds.length)
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LibraryFullList(
-                      title: widget.section,
-                      videos: widget.videosIds,
-                    ),
-                  ));
-                },
-                child: Text(
-                  showMore,
-                  style: const TextStyle(decoration: TextDecoration.underline),
-                ),
-              )
-            ],
+            )
+        ],
+      ],
     );
   }
 }

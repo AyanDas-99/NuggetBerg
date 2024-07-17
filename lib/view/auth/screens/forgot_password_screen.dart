@@ -24,6 +24,12 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final authLoading = ref.watch(
         authRepositoryNotifierProvider.select((value) => value.isLoading));

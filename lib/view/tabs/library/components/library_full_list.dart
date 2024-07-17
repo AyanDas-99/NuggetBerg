@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/state/auth/providers/access_token.dart';
@@ -17,32 +19,59 @@ class LibraryFullList extends ConsumerStatefulWidget {
 }
 
 class _LibraryFullListState extends ConsumerState<LibraryFullList> {
+  late ScrollController controller;
+  bool hasMore = true;
+  bool isLoading = false;
+
   List<Video>? videosList;
 
-  loadVideos() async {
+  loadVideos(int start) async {
+    if (isLoading) return;
+    isLoading = true;
     try {
       final videoRepo = ref.read(videoRepositoryProvider);
       final accessToken = await ref.read(accessTokenProvider.future);
-      videosList = [];
-      for (var i = 0; i < widget.videos.length; i++) {
+      if (start + 4 > widget.videos.length) {
+        hasMore = false;
+      }
+      final extent = min(widget.videos.length, start + 4);
+      for (var i = start; i < extent; i++) {
         final video = await videoRepo.getVideoById(
             id: widget.videos[i], accessToken: accessToken!);
 
         if (video != null) {
           videosList!.add(video);
+
+          print(videosList);
+          setState(() {});
         }
       }
-      print(videosList);
-      setState(() {});
     } catch (e) {
       dev.log("Error in loadVideos | library_full_list.dart", error: e);
+    } finally {
+      isLoading = false;
     }
   }
 
   @override
   void initState() {
     super.initState();
-    loadVideos();
+    controller = ScrollController();
+    videosList = [];
+    loadVideos(0);
+    controller.addListener(() {
+      if (hasMore) {
+        if (controller.position.maxScrollExtent == controller.offset) {
+          loadVideos(videosList!.length);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -81,14 +110,27 @@ class _LibraryFullListState extends ConsumerState<LibraryFullList> {
                 ),
               )
             : ListView.builder(
+                controller: controller,
                 padding: const EdgeInsets.all(16),
-                itemCount: videosList!.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: NuggetCard(
-                    video: videosList![index],
-                  ),
-                ),
+                itemCount: videosList!.length + 1,
+                itemBuilder: (context, index) {
+                  if (index < videosList!.length) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: NuggetCard(
+                        video: videosList![index],
+                      ),
+                    );
+                  } else {
+                    if (hasMore) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }
+                },
               ),
       ),
     );

@@ -23,6 +23,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
   final searchContrller = TextEditingController();
 
   @override
+  void dispose() {
+    searchContrller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,

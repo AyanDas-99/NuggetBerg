@@ -10,7 +10,6 @@ class StartupLoading extends StatefulWidget {
 
 class _StartupLoadingState extends State<StartupLoading>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
 
   @override
   Widget build(BuildContext context) {

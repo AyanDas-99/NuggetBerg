@@ -32,6 +32,11 @@ class _MainContentState extends ConsumerState<MainContent> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = ref.watch(mongoUserProvider);
     final favourites = user?.favourites.map((e) => e['video_id']) ?? [];

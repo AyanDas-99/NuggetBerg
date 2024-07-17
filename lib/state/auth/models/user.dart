@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nugget_berg/state/auth/models/user_field_names.dart';
 
@@ -54,22 +52,6 @@ class User extends Equatable{
     return 'User(id: $id, email: $email, favourites: $favourites, viewed: $viewed)';
   }
 
-  @override
-  bool operator ==(covariant User other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return other.id == id &&
-        other.email == email &&
-        listEquals(other.favourites, favourites) &&
-        listEquals(other.viewed, viewed);
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^ email.hashCode ^ favourites.hashCode ^ viewed.hashCode;
-  }
-  
   @override
   List<Object?> get props => [id, email, favourites, viewed, nextPage];
 }

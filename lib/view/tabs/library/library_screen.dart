@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/view/all_strings.dart';
-import 'package:nugget_berg/view/tabs/library/components/library_full_list.dart';
 import 'package:nugget_berg/view/tabs/library/components/section.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/state/nuggets/providers/nuggets.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/tabs/home/components/main_content.dart';
@@ -21,6 +20,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
     ref.read(nuggetsProvider.notifier).loadNuggets();
   }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  } 
 
   int currentIndex = 0;
 
@@ -49,18 +54,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         surfaceTintColor: Colors.transparent,
       ),
-      body:(nuggets.isEmpty) ? const MainContentLoading() : PageView.builder(
-        onPageChanged: (current) => _handlePageChange(current),
-        controller: pageController,
-        scrollDirection: Axis.vertical,
-        itemCount: nuggets.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index >= nuggets.length) {
-            return const MainContentLoading();
-          }
-          return MainContent(nugget: nuggets[index]);
-        },
-      ),
+      body: (nuggets.isEmpty)
+          ? const MainContentLoading()
+          : PageView.builder(
+              onPageChanged: (current) => _handlePageChange(current),
+              controller: pageController,
+              scrollDirection: Axis.vertical,
+              itemCount: nuggets.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (index >= nuggets.length) {
+                  return const MainContentLoading();
+                }
+                return MainContent(nugget: nuggets[index]);
+              },
+            ),
     );
   }
 }
