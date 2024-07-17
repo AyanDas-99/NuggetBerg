@@ -22,13 +22,7 @@ class _TabViewControllerState extends ConsumerState<TabViewController> {
       label: forYou,
       selectedIcon: const Icon(Icons.home),
     ),
-    NavigationDestination(
-      icon: const Icon(CupertinoIcons.search_circle),
-      label: explore,
-      selectedIcon: const Icon(
-        CupertinoIcons.search_circle_fill,
-      ),
-    ),
+   
     NavigationDestination(
       icon: const Icon(Icons.bookmark_border_rounded),
       label: myLibrary,
@@ -71,7 +65,6 @@ class _TabViewControllerState extends ConsumerState<TabViewController> {
             Expanded(
                 child: [
               const HomeScreen(),
-              const ExploreScreen(),
               const LibraryScreen(),
               const SettingsScreen()
             ][selected]),

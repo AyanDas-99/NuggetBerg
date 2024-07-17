@@ -44,7 +44,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
-          '$home ${ref.watch(mongoUserProvider)!.nextPage}',
+          home,
           style: const TextStyle(fontWeight: FontWeight.w200),
         ),
         surfaceTintColor: Colors.transparent,

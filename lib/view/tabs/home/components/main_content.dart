@@ -94,27 +94,19 @@ class _MainContentState extends ConsumerState<MainContent> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  IconButton(
-                    icon: (isFav == true)
-                        ? const Icon(CupertinoIcons.heart_fill,
-                            color: Colors.red)
-                        : const Icon(CupertinoIcons.heart),
-                    onPressed: () {
-                      ref
-                          .read(mongoUserProvider.notifier)
-                          .addToFavourite(widget.nugget.video.id);
-                          setState(() {
-                            isFav = !isFav;
-                          });
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(CupertinoIcons.bookmark_fill),
-                    onPressed: () {},
-                  ),
-                ],
+              IconButton(
+                icon: (isFav == true)
+                    ? const Icon(CupertinoIcons.heart_fill,
+                        color: Colors.red)
+                    : const Icon(CupertinoIcons.heart),
+                onPressed: () {
+                  ref
+                      .read(mongoUserProvider.notifier)
+                      .addToFavourite(widget.nugget.video.id);
+                      setState(() {
+                        isFav = !isFav;
+                      });
+                },
               ),
             ],
           ),

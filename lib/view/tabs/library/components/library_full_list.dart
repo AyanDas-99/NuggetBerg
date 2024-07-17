@@ -4,6 +4,8 @@ import 'package:nugget_berg/state/auth/providers/access_token.dart';
 import 'package:nugget_berg/state/videos/models/video.dart';
 import 'package:nugget_berg/state/videos/provider/video_repository.dart';
 import 'package:nugget_berg/view/components/nugget_card.dart';
+import 'package:shimmer/shimmer.dart';
+import 'dart:developer' as dev;
 
 class LibraryFullList extends ConsumerStatefulWidget {
   final String title;
@@ -18,19 +20,23 @@ class _LibraryFullListState extends ConsumerState<LibraryFullList> {
   List<Video>? videosList;
 
   loadVideos() async {
-    final videoRepo = ref.read(videoRepositoryProvider);
-    final accessToken = await ref.read(accessTokenProvider.future);
-    videosList = [];
-    for (var i = 0; i < widget.videos.length; i++) {
-      final video = await videoRepo.getVideoById(
-          id: widget.videos[i], accessToken: accessToken!);
-      
-      if(video != null) {
-        videosList!.add(video);
+    try {
+      final videoRepo = ref.read(videoRepositoryProvider);
+      final accessToken = await ref.read(accessTokenProvider.future);
+      videosList = [];
+      for (var i = 0; i < widget.videos.length; i++) {
+        final video = await videoRepo.getVideoById(
+            id: widget.videos[i], accessToken: accessToken!);
+
+        if (video != null) {
+          videosList!.add(video);
+        }
       }
+      print(videosList);
+      setState(() {});
+    } catch (e) {
+      dev.log("Error in loadVideos | library_full_list.dart", error: e);
     }
-    print(videosList);
-    setState(() {});
   }
 
   @override
@@ -61,10 +67,18 @@ class _LibraryFullListState extends ConsumerState<LibraryFullList> {
           ),
         ),
         body: (videosList == null || videosList!.isEmpty)
-            ? Container(
-                height: 100,
-                width: double.infinity,
-                color: Colors.grey,
+            ? Shimmer.fromColors(
+                baseColor: Colors.grey,
+                highlightColor: Colors.grey.shade400,
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  height: 200,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               )
             : ListView.builder(
                 padding: const EdgeInsets.all(16),
