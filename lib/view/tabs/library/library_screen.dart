@@ -44,45 +44,18 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LibraryFullList(
-                        title: liked,
-                        videos: user.favourites
-                            .map((e) => e['video_id'] as String)
-                            .toList(),
-                      ),
-                    ));
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  title: Text(liked),
-                  subtitle: Text('${user!.favourites.length} nuggets'),
-                  trailing: const Icon(Icons.navigate_next),
-                  leading: const Icon(CupertinoIcons.heart_fill),
-                ),
-                ListTile(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => LibraryFullList(
-                          title: bookmarks,
-                          videos: user.favourites
-                              .map((e) => e['video_id'] as String)
-                              .toList() ),
-                    ));
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  title: Text(bookmarks),
-                  subtitle: const Text('6 nuggets'),
-                  trailing: const Icon(Icons.navigate_next),
-                  leading: const Icon(Icons.bookmark),
+                Section(
+                  section: liked,
+                  videosIds: user!.favourites
+                      .map((e) => e['video_id'] as String)
+                      .toList(),
                 ),
                 const SizedBox(height: 20),
-                Section(section: history),
+                Section(
+                  section: history,
+                  videosIds:
+                      user.viewed.map((e) => e['video_id'] as String).toList(),
+                ),
               ],
             ),
           ),

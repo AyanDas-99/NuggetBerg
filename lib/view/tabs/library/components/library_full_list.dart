@@ -66,7 +66,7 @@ class _LibraryFullListState extends ConsumerState<LibraryFullList> {
             style: const TextStyle(fontWeight: FontWeight.w200),
           ),
         ),
-        body: (videosList == null || videosList!.isEmpty)
+        body: (videosList == null)
             ? Shimmer.fromColors(
                 baseColor: Colors.grey,
                 highlightColor: Colors.grey.shade400,

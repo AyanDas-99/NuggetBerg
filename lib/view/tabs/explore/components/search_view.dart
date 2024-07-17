@@ -30,6 +30,7 @@ class SearchView extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           itemCount: 10,
           itemBuilder: (context, index) => Padding(
+            // ignore: prefer_const_constructors
             padding: EdgeInsets.only(bottom: 8.0),
             child: Container(),
           ),
