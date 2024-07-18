@@ -2,9 +2,13 @@ const express = require('express');
 const User = require('../../models/user');
 const auth = require('../../middleware/auth');
 const Settings = require('../../models/setting');
+const { storeSettings, getSettings } = require('../../utils/store_retrieve_settings');
 
 const userRoute = express.Router();
 
+/*
+Create user and try creating user settings
+*/
 userRoute.post('/user/create', auth, async (req, res) => {
     try {
         const email = req.email;
@@ -21,6 +25,9 @@ userRoute.post('/user/create', auth, async (req, res) => {
         });
         user = await user.save();
         res.json(user);
+
+        // try creating user settings
+        storeSettings(user_id, true, true, true);
     } catch (e) {
         return res.status(500).json({ error: e.message })
     }
@@ -90,6 +97,7 @@ userRoute.post('/user/add-nextpage', auth, async (req, res) => {
     }
 })
 
+// Get user
 userRoute.get('/user', auth, async (req, res) => {
     try {
         const user_id = req.uid;
@@ -110,13 +118,10 @@ userRoute.post('/user/update-settings', auth, async (req, res) => {
     try {
         const user_id = req.uid;
         const { store_history, show_history, show_liked } = req.body;
-
-        let settings = await Settings.findOneAndReplace({
-            user_id
-        }, { store_history, show_history, show_liked, user_id }, { upsert: true, new: true });
-
-        settings = await settings.save();
-
+        const settings = await storeSettings(user_id, store_history, show_history, show_liked);
+        if (!settings) {
+            return res.status(404).json({ msg: "Could not update settings" })
+        }
         res.json(settings);
     } catch (e) {
         res.status(500).json({ error: e.message });
@@ -125,12 +130,12 @@ userRoute.post('/user/update-settings', auth, async (req, res) => {
 )
 
 // get settings from settings collection
-userRoute.post('/user/settings', auth, async (req, res) => {
+userRoute.get('/user/settings', auth, async (req, res) => {
     try {
         const user_id = req.uid;
-        const userSettings = Settings.findOne({user_id});
-        if(!userSettings) {
-            return res.status(204).json({msg: "User settings not found"});
+        const userSettings = await getSettings(user_id);
+        if (!userSettings) {
+            return res.status(404).json({ msg: "User settings not found" });
         }
         return res.json(userSettings);
     } catch (e) {
