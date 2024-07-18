@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../../models/user');
 const auth = require('../../middleware/auth');
+const Settings = require('../../models/setting');
 
 const userRoute = express.Router();
 
@@ -98,6 +99,40 @@ userRoute.get('/user', auth, async (req, res) => {
             return res.status(204).json({ msg: "User with email doesn't exit" });
         }
         res.json(existingUser);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+)
+
+// update user settings in settings collection
+userRoute.post('/user/update-settings', auth, async (req, res) => {
+    try {
+        const user_id = req.uid;
+        const { store_history, show_history, show_liked } = req.body;
+
+        let settings = await Settings.findOneAndReplace({
+            user_id
+        }, { store_history, show_history, show_liked, user_id }, { upsert: true, new: true });
+
+        settings = await settings.save();
+
+        res.json(settings);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+)
+
+// get settings from settings collection
+userRoute.post('/user/settings', auth, async (req, res) => {
+    try {
+        const user_id = req.uid;
+        const userSettings = Settings.findOne({user_id});
+        if(!userSettings) {
+            return res.status(204).json({msg: "User settings not found"});
+        }
+        return res.json(userSettings);
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
