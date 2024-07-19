@@ -31,10 +31,10 @@ class _LibraryFullListState extends ConsumerState<LibraryFullList> {
     try {
       final videoRepo = ref.read(videoRepositoryProvider);
       final accessToken = await ref.read(accessTokenProvider.future);
-      if (start + 4 > widget.videos.length) {
+      if (start + 10 > widget.videos.length) {
         hasMore = false;
       }
-      final extent = min(widget.videos.length, start + 4);
+      final extent = min(widget.videos.length, start + 10);
       for (var i = start; i < extent; i++) {
         final video = await videoRepo.getVideoById(
             id: widget.videos[i], accessToken: accessToken!);

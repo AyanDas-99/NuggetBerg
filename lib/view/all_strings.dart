@@ -48,3 +48,10 @@ String categories = 'Categories';
 String liked = 'Liked';
 String history = 'History';
 String showMore = 'Show more';
+
+// Settings
+String profile = 'Profile';
+String showHistory = 'Show history';
+String showLiked = 'Show liked';
+String storeHistory = 'Store history';
+String deleteAcc = 'Delete account';

@@ -1,5 +1,6 @@
 import 'package:nugget_berg/state/auth/models/user.dart' as user_model;
 import 'package:nugget_berg/state/auth/providers/mongo_user_repository.dart';
+import 'package:nugget_berg/state/settings/providers/settings.dart';
 import 'package:nugget_berg/state/videos/provider/next_page_token.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'mongo_user.g.dart';
@@ -39,6 +40,8 @@ class MongoUser extends _$MongoUser {
   }
 
   Future addToViewed(String videoId) async {
+    final userSettings = ref.read(settingsProvider);
+    if (userSettings?.storeHistory != true) return;
     final mongoUserRepository = ref.read(mongoUserRepositoryProvider);
     final user = await mongoUserRepository.addToViewed(videoId);
     if (user != null) {

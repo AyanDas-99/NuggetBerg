@@ -6,7 +6,7 @@ part of 'mongo_user.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mongoUserHash() => r'41376355130c2a9ece0a08a7e302810646965dc9';
+String _$mongoUserHash() => r'cb99f6a2e0ee1b685893b7d6c4814a9b531c0981';
 
 /// See also [MongoUser].
 @ProviderFor(MongoUser)

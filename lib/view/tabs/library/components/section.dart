@@ -22,10 +22,12 @@ class Section extends ConsumerStatefulWidget {
 
 class _SectionState extends ConsumerState<Section> {
   List<Video>? videosList;
+  final int showCount = 3;
 
   loadVideos() async {
     // Get only 2 videos
-    final videos = widget.videosIds.sublist(0, min(widget.videosIds.length, 2));
+    final videos =
+        widget.videosIds.sublist(0, min(widget.videosIds.length, showCount));
 
     try {
       final videoRepo = ref.read(videoRepositoryProvider);
@@ -64,18 +66,17 @@ class _SectionState extends ConsumerState<Section> {
         const SizedBox(height: 20),
         if (videosList == null)
           ...List.generate(
-              2,
+              showCount,
               (index) => Shimmer.fromColors(
                     baseColor: Colors.grey,
                     highlightColor: Colors.grey.shade400,
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      height: 200,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                    child: ListTile(
+                      leading:
+                          Container(width: 50, height: 50, color: Colors.black),
+                      title: Container(
+                          width: double.infinity,
+                          height: 50,
+                          color: Colors.black),
                     ),
                   ))
         else ...[

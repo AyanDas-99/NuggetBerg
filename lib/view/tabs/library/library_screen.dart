@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
+import 'package:nugget_berg/state/settings/providers/settings.dart';
 import 'package:nugget_berg/view/all_strings.dart';
 import 'package:nugget_berg/view/tabs/library/components/section.dart';
 
@@ -19,6 +20,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(mongoUserProvider);
+    final userSettings = ref.watch(settingsProvider);
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -38,22 +40,31 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Section(
-                  section: liked,
-                  videosIds: user!.favourites
-                      .map((e) => e['video_id'] as String)
-                      .toList(),
-                ),
+                if (userSettings?.showLiked == false &&
+                    userSettings?.showHistory == false)
+                  const Text('Nothing to see here!!'),
+                // Liked section
+                if (userSettings?.showLiked != false)
+                  Section(
+                    section: liked,
+                    videosIds: user!.favourites
+                        .map((e) => e['video_id'] as String)
+                        .toList(),
+                  ),
                 const SizedBox(height: 20),
-                Section(
-                  section: history,
-                  videosIds:
-                      user.viewed.map((e) => e['video_id'] as String).toList(),
-                ),
+                // History section
+                if (userSettings?.showHistory != false)
+                  Section(
+                    section: history,
+                    videosIds: user!.viewed
+                        .map((e) => e['video_id'] as String)
+                        .toList(),
+                  ),
               ],
             ),
           ),
