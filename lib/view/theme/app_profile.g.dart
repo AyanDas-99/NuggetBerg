@@ -1,24 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'settings.dart';
+part of 'app_profile.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsHash() => r'b964ba3213e842a26382caa2caeb53d2299bf8d2';
+String _$appProfileHash() => r'a7c122a6a4e70277150efa1f34ea6cfd3e3b48a2';
 
-/// See also [Settings].
-@ProviderFor(Settings)
-final settingsProvider = NotifierProvider<Settings, model.Settings?>.internal(
-  Settings.new,
-  name: r'settingsProvider',
+/// See also [AppProfile].
+@ProviderFor(AppProfile)
+final appProfileProvider =
+    AutoDisposeNotifierProvider<AppProfile, Profile>.internal(
+  AppProfile.new,
+  name: r'appProfileProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$settingsHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$appProfileHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Settings = Notifier<model.Settings?>;
+typedef _$AppProfile = AutoDisposeNotifier<Profile>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

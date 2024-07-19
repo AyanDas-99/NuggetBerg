@@ -6,6 +6,8 @@ import 'package:nugget_berg/state/settings/providers/settings.dart';
 import 'package:nugget_berg/view/all_strings.dart' as strings;
 import 'package:nugget_berg/state/settings/models/settings.dart' as model;
 import 'package:nugget_berg/view/tabs/settings/components/loader.dart';
+import 'package:nugget_berg/view/tabs/settings/components/profile_bottom_sheet.dart';
+import 'package:nugget_berg/view/theme/app_profile.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -27,9 +29,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     });
   }
 
+  openProfileBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const ProfileBottomSheet(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
+    final profile = ref.watch(appProfileProvider);
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -48,7 +58,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
           ),
           RefreshIndicator(
-            onRefresh: () async{
+            onRefresh: () async {
               await ref.read(mongoUserProvider.notifier).getUser();
               await ref.read(settingsProvider.notifier).getSettings();
               return;
@@ -89,9 +99,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                       Loader(loading: isLoading),
                                       // Profile
                                       ListTile(
+                                        onTap: () => openProfileBottomSheet(),
                                         leading: CircleAvatar(
                                           child: Image.asset(
-                                            'assets/images/chicken_nugget.png',
+                                            profile.image,
+                                            height: 30,
                                           ),
                                         ),
                                         title: Text(strings.profile),
@@ -133,7 +145,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                                   Colors.transparent),
                                           value: settings?.showLiked ?? true,
                                           onChanged: (bool value) => update(
-                                            settings!.copyWith(showLiked: value),
+                                            settings!
+                                                .copyWith(showLiked: value),
                                           ),
                                         ),
                                       ),

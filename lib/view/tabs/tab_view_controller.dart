@@ -6,7 +6,7 @@ import 'package:nugget_berg/view/tabs/explore/screens/explore_screen.dart';
 import 'package:nugget_berg/view/tabs/home/home_screen.dart';
 import 'package:nugget_berg/view/tabs/library/library_screen.dart';
 import 'package:nugget_berg/view/tabs/settings/settings_screen.dart';
-import 'package:nugget_berg/view/theme/app_gradient.dart';
+import 'package:nugget_berg/view/theme/app_profile.dart';
 
 class TabViewController extends ConsumerStatefulWidget {
   const TabViewController({super.key});
@@ -39,10 +39,10 @@ class _TabViewControllerState extends ConsumerState<TabViewController> {
 
   @override
   Widget build(BuildContext context) {
-    final appGradient = ref.watch(appGradientProvider);
+    final appProfiles = ref.watch(appProfileProvider);
     return Container(
       decoration: BoxDecoration(
-        gradient: appGradient,
+        gradient: appProfiles.gradient,
       ),
       child: Scaffold(
         extendBody: true,
