@@ -55,3 +55,4 @@ String showHistory = 'Show history';
 String showLiked = 'Show liked';
 String storeHistory = 'Store history';
 String deleteAcc = 'Delete account';
+String changeProfile = 'Change profile';

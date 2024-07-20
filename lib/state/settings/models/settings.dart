@@ -4,18 +4,23 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:nugget_berg/state/settings/models/constants.dart';
+import 'package:nugget_berg/view/theme/constants/profiles.dart';
+import 'package:nugget_berg/view/theme/profile.dart';
 
 class Settings extends Equatable {
   final String userId;
   final bool? storeHistory;
   final bool? showHistory;
   final bool? showLiked;
+  final Profile? profile;
 
-  const Settings(
-      {required this.userId,
-      this.storeHistory,
-      this.showHistory,
-      this.showLiked});
+  const Settings({
+    required this.userId,
+    this.storeHistory,
+    this.showHistory,
+    this.showLiked,
+    this.profile,
+  });
 
   @override
   List<Object?> get props => [userId, storeHistory, showHistory, showLiked];
@@ -26,11 +31,9 @@ class Settings extends Equatable {
       SettingsFieldNames.storeHistory: storeHistory,
       SettingsFieldNames.showHistory: showHistory,
       SettingsFieldNames.showLiked: showLiked,
+      SettingsFieldNames.profile: profile?.title,
     };
   }
-
-  static Settings initial() => const Settings(
-      userId: '', storeHistory: true, showHistory: true, showLiked: true);
 
   factory Settings.fromMap(Map<String, dynamic> map) {
     return Settings(
@@ -44,6 +47,10 @@ class Settings extends Equatable {
       showLiked: map[SettingsFieldNames.showLiked] != null
           ? map[SettingsFieldNames.showLiked] as bool
           : null,
+      profile: map[SettingsFieldNames.profile] != null
+          ? allAppProfiles.firstWhere((profile) =>
+              profile.title == map[SettingsFieldNames.profile] as String)
+          : allAppProfiles.first,
     );
   }
 
@@ -62,12 +69,14 @@ class Settings extends Equatable {
     bool? storeHistory,
     bool? showHistory,
     bool? showLiked,
+    String? profile,
   }) {
     return Settings(
       userId: userId ?? this.userId,
       storeHistory: storeHistory ?? this.storeHistory,
       showHistory: showHistory ?? this.showHistory,
       showLiked: showLiked ?? this.showLiked,
+      profile: allAppProfiles.where((e) => e.title == profile).firstOrNull,
     );
   }
 }

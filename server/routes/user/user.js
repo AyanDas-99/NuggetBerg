@@ -117,8 +117,8 @@ userRoute.get('/user', auth, async (req, res) => {
 userRoute.post('/user/update-settings', auth, async (req, res) => {
     try {
         const user_id = req.uid;
-        const { store_history, show_history, show_liked } = req.body;
-        const settings = await storeSettings(user_id, store_history, show_history, show_liked);
+        const { store_history, show_history, show_liked, profile} = req.body;
+        const settings = await storeSettings(user_id, store_history, show_history, show_liked, profile);
         if (!settings) {
             return res.status(404).json({ msg: "Could not update settings" })
         }

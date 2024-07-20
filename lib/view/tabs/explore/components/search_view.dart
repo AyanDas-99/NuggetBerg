@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nugget_berg/view/components/nugget_card.dart';
 
 class SearchView extends StatelessWidget {
   final String query;

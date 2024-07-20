@@ -62,8 +62,8 @@ class LoaderState extends State<Loader> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 10,
+    return ConstrainedBox(
+      constraints: BoxConstraints.loose(Size.fromHeight(10)),
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {

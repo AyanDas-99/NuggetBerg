@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nugget_berg/state/settings/providers/settings.dart';
 import 'package:nugget_berg/view/all_strings.dart';
-import 'package:nugget_berg/view/tabs/explore/screens/explore_screen.dart';
 import 'package:nugget_berg/view/tabs/home/home_screen.dart';
 import 'package:nugget_berg/view/tabs/library/library_screen.dart';
 import 'package:nugget_berg/view/tabs/settings/settings_screen.dart';
-import 'package:nugget_berg/view/theme/app_profile.dart';
+import 'package:nugget_berg/view/theme/constants/profiles.dart';
 
 class TabViewController extends ConsumerStatefulWidget {
   const TabViewController({super.key});
@@ -22,7 +21,6 @@ class _TabViewControllerState extends ConsumerState<TabViewController> {
       label: forYou,
       selectedIcon: const Icon(Icons.home),
     ),
-   
     NavigationDestination(
       icon: const Icon(Icons.bookmark_border_rounded),
       label: myLibrary,
@@ -39,7 +37,9 @@ class _TabViewControllerState extends ConsumerState<TabViewController> {
 
   @override
   Widget build(BuildContext context) {
-    final appProfiles = ref.watch(appProfileProvider);
+    final appProfiles =
+        ref.watch(settingsProvider.select((setting) => setting?.profile)) ??
+            allAppProfiles.first;
     return Container(
       decoration: BoxDecoration(
         gradient: appProfiles.gradient,

@@ -52,7 +52,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 if (userSettings?.showLiked != false)
                   Section(
                     section: liked,
-                    videosIds: user!.favourites
+                    videosIds: user.favourites
                         .map((e) => e['video_id'] as String)
                         .toList(),
                   ),
@@ -61,7 +61,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 if (userSettings?.showHistory != false)
                   Section(
                     section: history,
-                    videosIds: user!.viewed
+                    videosIds: user.viewed
                         .map((e) => e['video_id'] as String)
                         .toList(),
                   ),

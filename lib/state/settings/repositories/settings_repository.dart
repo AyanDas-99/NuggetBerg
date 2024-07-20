@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'dart:developer' as dev;
 
 class SettingsRepository {
+  ///updates the setting
+  ///
+  ///sends the `settings.toJson()` value to server
   Future<Settings?> updateSettings(Settings settings) async {
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();

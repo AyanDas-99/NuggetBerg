@@ -7,7 +7,7 @@ import 'package:nugget_berg/view/all_strings.dart' as strings;
 import 'package:nugget_berg/state/settings/models/settings.dart' as model;
 import 'package:nugget_berg/view/tabs/settings/components/loader.dart';
 import 'package:nugget_berg/view/tabs/settings/components/profile_bottom_sheet.dart';
-import 'package:nugget_berg/view/theme/app_profile.dart';
+import 'package:nugget_berg/view/theme/constants/profiles.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -39,7 +39,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
-    final profile = ref.watch(appProfileProvider);
+    final profile = settings?.profile ?? allAppProfiles.first;
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,

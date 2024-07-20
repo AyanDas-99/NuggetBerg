@@ -8,10 +8,10 @@ async function getSettings(user_id) {
 
 }
 
-async function storeSettings(user_id, store_history, show_history, show_liked) {
+async function storeSettings(user_id, store_history, show_history, show_liked, profile) {
     let settings = await Settings.findOneAndReplace({
         user_id
-    }, { store_history, show_history, show_liked, user_id }, { upsert: true, new: true });
+    }, { store_history, show_history, show_liked, user_id, profile }, { upsert: true, new: true });
 
     settings = await settings.save();
     return settings;

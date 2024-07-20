@@ -41,7 +41,9 @@ class _SectionState extends ConsumerState<Section> {
           videosList!.add(video);
         }
       }
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     } catch (e) {
       dev.log("Error in loadVideos | library_full_list.dart", error: e);
     }

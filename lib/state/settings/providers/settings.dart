@@ -1,5 +1,6 @@
 import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/state/settings/providers/settings_repository.dart';
+import 'package:nugget_berg/view/theme/constants/profiles.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:nugget_berg/state/settings/models/settings.dart' as model;
 import 'dart:developer' as dev;
@@ -27,6 +28,7 @@ class Settings extends _$Settings {
           showLiked: true,
           storeHistory: true,
           userId: ref.read(mongoUserProvider)!.id,
+          profile: allAppProfiles.first,
         ),
       );
     } else {

@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/view/theme/app_profile.dart';
+import 'package:nugget_berg/state/settings/providers/settings.dart';
+import 'package:nugget_berg/view/all_strings.dart';
+import 'package:nugget_berg/view/tabs/settings/components/loader.dart';
+import 'package:nugget_berg/view/theme/constants/profiles.dart';
+import 'package:nugget_berg/state/settings/models/settings.dart' as model;
 
-class ProfileBottomSheet extends ConsumerWidget {
+class ProfileBottomSheet extends ConsumerStatefulWidget {
   const ProfileBottomSheet({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final profiles = ref.watch(appProfileProvider.notifier).allAppProfiles;
-    final currentProfile = ref.watch(appProfileProvider);
+  ConsumerState<ProfileBottomSheet> createState() => _ProfileBottomSheetState();
+}
+
+class _ProfileBottomSheetState extends ConsumerState<ProfileBottomSheet> {
+  bool isLoading = false;
+
+  update(model.Settings settings) async {
+    setState(() {
+      isLoading = true;
+    });
+    await ref.read(settingsProvider.notifier).updateSettings(settings);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = ref.watch(settingsProvider);
+    final currentProfile = settings?.profile ?? allAppProfiles.first;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -16,9 +37,10 @@ class ProfileBottomSheet extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            "Change profile",
-            style: TextStyle(fontSize: 18),
+          Loader(loading: isLoading),
+          Text(
+            changeProfile,
+            style: const TextStyle(fontSize: 18),
           ),
           SizedBox(
             height: 200,
@@ -26,9 +48,9 @@ class ProfileBottomSheet extends ConsumerWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: List.generate(
-                  profiles.length,
+                  allAppProfiles.length,
                   (index) {
-                    final profile = profiles[index];
+                    final profile = allAppProfiles[index];
                     bool selected = profile == currentProfile;
                     return Padding(
                       padding: const EdgeInsets.only(right: 10),
@@ -38,7 +60,8 @@ class ProfileBottomSheet extends ConsumerWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              ref.read(appProfileProvider.notifier).change(profile);
+                              update(
+                                  settings!.copyWith(profile: profile.title));
                             },
                             child: CircleAvatar(
                               backgroundColor: profile.gradient.colors.last,
