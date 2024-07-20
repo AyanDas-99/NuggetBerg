@@ -21,7 +21,7 @@ class MongoUserRepository {
       if (response.statusCode == 200) {
         return user_model.User.fromJson(response.body);
       } else {
-        dev.log(response.toString());
+        dev.log(response.body);
         return null;
       }
     } catch (e) {

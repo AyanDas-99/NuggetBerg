@@ -37,7 +37,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
         onRefresh: () async {
           await refresh();
         },
-        child: Padding(
+        child: user == null ? const Center(child: Text("Something is wrong!"),) : Padding(
           padding: const EdgeInsets.all(6),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
