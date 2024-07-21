@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nugget_berg/state/auth/providers/auth_state_changes.dart';
 import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
+import 'package:nugget_berg/state/auth/repositories/auth_repository.dart';
 import 'package:nugget_berg/state/settings/providers/settings.dart';
 import 'package:nugget_berg/view/all_strings.dart' as strings;
 import 'package:nugget_berg/state/settings/models/settings.dart' as model;
 import 'package:nugget_berg/view/tabs/settings/components/loader.dart';
+import 'package:nugget_berg/view/tabs/settings/components/logout_dialog.dart';
 import 'package:nugget_berg/view/tabs/settings/components/profile_bottom_sheet.dart';
 import 'package:nugget_berg/view/theme/constants/profiles.dart';
 
@@ -36,10 +39,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
+  logout(BuildContext context) async {
+    bool? logout = await showDialog(
+      context: context,
+      builder: (context) => logoutDialog(context),
+    );
+
+    if (logout == true) {
+      ref.read(authRepositoryNotifierProvider.notifier).signOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final profile = settings?.profile ?? allAppProfiles.first;
+    final authLoading = ref.watch(authRepositoryNotifierProvider.select((state) => state.isLoading));
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -154,6 +169,26 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
+                                // Log out
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ListTile(
+                                    onTap: () => logout(context),
+                                    title: Text(
+                                      strings.logout,
+                                      style: const TextStyle(color: Colors.red),
+                                    ),
+                                    trailing: const Icon(
+                                      Icons.logout_sharp,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 20),
                                 // Delete account
                                 Container(
                                   decoration: BoxDecoration(
@@ -182,7 +217,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ),
             ),
-          )
+          ),
+
+          // Loading for auth
+          if(authLoading)
+          const Center(child: CircularProgressIndicator(),),
         ],
       ),
     );

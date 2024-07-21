@@ -56,3 +56,8 @@ String showLiked = 'Show liked';
 String storeHistory = 'Store history';
 String deleteAcc = 'Delete account';
 String changeProfile = 'Change profile';
+String logout = 'Logout';
+String doYouWantToLogOut = 'Do you want to log out?';
+String areYouSureDeleteRichText =
+    'Are you sure you want to <b>delete</b> your account';
+String cancel = 'Cancel';
