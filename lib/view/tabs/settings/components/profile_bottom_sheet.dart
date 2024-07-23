@@ -44,45 +44,43 @@ class _ProfileBottomSheetState extends ConsumerState<ProfileBottomSheet> {
           ),
           SizedBox(
             height: 200,
-            child: Expanded(
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(
-                  allAppProfiles.length,
-                  (index) {
-                    final profile = allAppProfiles[index];
-                    bool selected = profile == currentProfile;
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              update(
-                                  settings!.copyWith(profile: profile.title));
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: profile.gradient.colors.last,
-                              radius: 50,
-                              child: Image.asset(
-                                profile.image,
-                                height: 50,
-                              ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: List.generate(
+                allAppProfiles.length,
+                (index) {
+                  final profile = allAppProfiles[index];
+                  bool selected = profile == currentProfile;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            update(
+                                settings!.copyWith(profile: profile.title));
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: profile.gradient.colors.last,
+                            radius: 50,
+                            child: Image.asset(
+                              profile.image,
+                              height: 50,
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Container(
-                            height: 5,
-                            color: selected ? Colors.red.shade200 : null,
-                            width: 50,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          height: 5,
+                          color: selected ? Colors.red.shade200 : null,
+                          width: 50,
+                        )
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),

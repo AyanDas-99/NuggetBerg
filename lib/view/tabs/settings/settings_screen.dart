@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nugget_berg/state/auth/providers/auth_state_changes.dart';
 import 'package:nugget_berg/state/auth/providers/mongo_user.dart';
 import 'package:nugget_berg/state/auth/repositories/auth_repository.dart';
 import 'package:nugget_berg/state/settings/providers/settings.dart';
@@ -54,7 +52,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final profile = settings?.profile ?? allAppProfiles.first;
-    final authLoading = ref.watch(authRepositoryNotifierProvider.select((state) => state.isLoading));
+    final authLoading = ref.watch(
+        authRepositoryNotifierProvider.select((state) => state.isLoading));
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
@@ -187,28 +186,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     ),
                                   ),
                                 ),
-
-                                const SizedBox(height: 20),
-                                // Delete account
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: ListTile(
-                                    onTap: () {
-                                      // Delete
-                                    },
-                                    title: Text(
-                                      strings.deleteAcc,
-                                      style: const TextStyle(color: Colors.red),
-                                    ),
-                                    trailing: const Icon(
-                                      CupertinoIcons.bin_xmark,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                           )),
@@ -220,8 +197,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
 
           // Loading for auth
-          if(authLoading)
-          const Center(child: CircularProgressIndicator(),),
+          if (authLoading)
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
         ],
       ),
     );
