@@ -4,6 +4,12 @@ The app provides concise, easily digestible summaries, saving time while deliver
 
 - Summarizes personal growth videos from YouTube into key knowledge points.
 - Saves time by providing concise, actionable summaries.
+  
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/2f03f261-fe97-4f2d-90c5-ab73f08e3a6c" width="200" />
+  <img src="https://github.com/user-attachments/assets/aad6778a-d56f-40af-b43d-d9d2fa758c89" width="200" /> 
+  <img src="https://github.com/user-attachments/assets/8a8e8486-6170-40fc-bd0b-1f8bfbd3dcf8" width="200" />
+</p>
 
 ## Installation
 
